@@ -30,8 +30,8 @@
   </div>
   <div class="content flex-grow-1">
     <div class="nav d-flex justify-content-end align-items-center">
-        <div class="mr-4" v-if="user.name">歡迎回來!{{user.name}}</div>
-        <router-link class="mr-4" to='/' exact>Home</router-link>
+        <p class="mr-4" v-if="user.name">歡迎回來!{{user.name}}</p>
+        <router-link class="mr-4 ml-4" to='/' exact>Home</router-link>
         <div v-if="user.name" @click="userLogout">Logout</div>
         <div class="nav_btn" @click="sideBarClose = !sideBarClose"><i class="fas fa-bars"></i></div>
     </div>
@@ -83,6 +83,8 @@ export default {
   width:250px;
   height:100vh;
   position:sticky;
+  top:0;
+  left:0;
   z-index:999;
   background-color:#3c4c66;
   color:#fff;
@@ -91,6 +93,7 @@ export default {
   color:#6d7e9e;
   transition:0.3s all ease;
   &.close{
+    left:-250px;
     margin-left:-250px;
     transition:0.3s all ease;
   }
@@ -139,6 +142,11 @@ export default {
       font-size:16px;
       text-decoration:none;
       color:#3c4c66;
+    }
+    p{
+      font-weight:900;
+      font-size:16px;
+      margin:0;
     }
     &_btn{
       font-size:20px;

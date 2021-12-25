@@ -6645,7 +6645,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
       });
     }
-  })
+  }),
+  created: function created() {
+    var _this2 = this;
+
+    // 在頁面載入時讀取sessionStorage裡的狀態資訊
+    if (sessionStorage.getItem('store')) {
+      this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem('store')))); // console.log(JSON.parse(sessionStorage.getItem('store')))  // 列印
+    } // 在頁面重新整理時將vuex裡的資訊儲存到sessionStorage裡
+    // beforeunload事件在頁面重新整理時先觸發
+
+
+    window.addEventListener('beforeunload', function () {
+      sessionStorage.setItem('store', JSON.stringify(_this2.$store.state)); // console.log(JSON.parse(sessionStorage.getItem('store')))  // 列印
+    });
+  }
 });
 
 /***/ }),
@@ -7365,7 +7379,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".sidebar {\n  width: 250px;\n  height: 100vh;\n  position: -webkit-sticky;\n  position: sticky;\n  z-index: 999;\n  background-color: #3c4c66;\n  color: #fff;\n  font-weight: 900;\n  font-size: 16px;\n  color: #6d7e9e;\n  transition: 0.3s all ease;\n}\n.sidebar.close {\n  margin-left: -250px;\n  transition: 0.3s all ease;\n}\n.sidebar a {\n  color: #6d7e9e;\n}\n.sidebar .user_pic {\n  width: 120px;\n  height: 120px;\n}\n.sidebar .user_pic img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.sidebar .adminpage, .sidebar a {\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.sidebar .adminpage:hover, .sidebar a:hover {\n  color: #f0f0f0;\n}\n.sidebar .adminpage:hover a, .sidebar a:hover a {\n  color: #f0f0f0;\n}\n.content {\n  background-color: #f1f0f2;\n}\n.content.close {\n  width: 100%;\n}\n.content .nav {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 80px;\n  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.05);\n  position: fixed;\n  padding-right: 150px;\n  background-color: white;\n}\n.content .nav a, .content .nav div {\n  cursor: pointer;\n  margin-right: 20px;\n  font-weight: 900;\n  font-size: 16px;\n  text-decoration: none;\n  color: #3c4c66;\n}\n.content .nav_btn {\n  font-size: 20px;\n}\n.content .main {\n  margin-top: 100px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".sidebar {\n  width: 250px;\n  height: 100vh;\n  position: -webkit-sticky;\n  position: sticky;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  background-color: #3c4c66;\n  color: #fff;\n  font-weight: 900;\n  font-size: 16px;\n  color: #6d7e9e;\n  transition: 0.3s all ease;\n}\n.sidebar.close {\n  left: -250px;\n  margin-left: -250px;\n  transition: 0.3s all ease;\n}\n.sidebar a {\n  color: #6d7e9e;\n}\n.sidebar .user_pic {\n  width: 120px;\n  height: 120px;\n}\n.sidebar .user_pic img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.sidebar .adminpage, .sidebar a {\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.sidebar .adminpage:hover, .sidebar a:hover {\n  color: #f0f0f0;\n}\n.sidebar .adminpage:hover a, .sidebar a:hover a {\n  color: #f0f0f0;\n}\n.content {\n  background-color: #f1f0f2;\n}\n.content.close {\n  width: 100%;\n}\n.content .nav {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 80px;\n  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.05);\n  position: fixed;\n  padding-right: 150px;\n  background-color: white;\n}\n.content .nav a, .content .nav div {\n  cursor: pointer;\n  margin-right: 20px;\n  font-weight: 900;\n  font-size: 16px;\n  text-decoration: none;\n  color: #3c4c66;\n}\n.content .nav p {\n  font-weight: 900;\n  font-size: 16px;\n  margin: 0;\n}\n.content .nav_btn {\n  font-size: 20px;\n}\n.content .main {\n  margin-top: 100px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30154,14 +30168,14 @@ var render = function () {
         { staticClass: "nav d-flex justify-content-end align-items-center" },
         [
           _vm.user.name
-            ? _c("div", { staticClass: "mr-4" }, [
+            ? _c("p", { staticClass: "mr-4" }, [
                 _vm._v("歡迎回來!" + _vm._s(_vm.user.name)),
               ])
             : _vm._e(),
           _vm._v(" "),
           _c(
             "router-link",
-            { staticClass: "mr-4", attrs: { to: "/", exact: "" } },
+            { staticClass: "mr-4 ml-4", attrs: { to: "/", exact: "" } },
             [_vm._v("Home")]
           ),
           _vm._v(" "),

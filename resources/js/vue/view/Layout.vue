@@ -32,6 +32,26 @@ export default {
           })
       })
     }
-  }
+  },
+created() {
+      // 在頁面載入時讀取sessionStorage裡的狀態資訊
+      if (sessionStorage.getItem('store')) {
+        this.$store.replaceState(
+          Object.assign(
+            {},
+            this.$store.state,
+            JSON.parse(sessionStorage.getItem('store'))
+          )
+        )
+        // console.log(JSON.parse(sessionStorage.getItem('store')))  // 列印
+      }
+
+      // 在頁面重新整理時將vuex裡的資訊儲存到sessionStorage裡
+      // beforeunload事件在頁面重新整理時先觸發
+      window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('store', JSON.stringify(this.$store.state))
+        // console.log(JSON.parse(sessionStorage.getItem('store')))  // 列印
+      })
+    },
 }
 </script>
