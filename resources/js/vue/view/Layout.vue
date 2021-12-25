@@ -1,16 +1,8 @@
 <template>
 <div>
-    <div class="container mx-auto flex justify-between">
-        <router-link class="mr-4" to='/' exact>Home</router-link>
-        <router-link class="mr-4" to='/login' exact v-if="!user.name">Login</router-link>
-        <router-link to='/register' v-if="!user.name">Register</router-link>
-        <router-link to='/adminpage/' v-if="user.name">Dashboard</router-link>
-        <p v-if="user.name">歡迎回來!{{user.name}}</p>
-        <button v-if="user.name" @click="userLogout">Logout</button>
-    </div>
-    <div class="text-2xl text-gray-800">
-        Home
-    </div>
+  <div class="w-100">
+    <router-view></router-view>
+  </div>
 </div>
 </template>
 <script>

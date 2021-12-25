@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +23,12 @@ Route::middleware('auth:sanctum')->get('/athenticated', function () {
     return true;
 });
 Route::prefix('user')->group(function(){
-    Route::post('/login', 'LoginController@login');
-    Route::post('/register', 'RegisterController@register');
-    Route::post('/logout', 'LoginController@logout');
+    Route::post('/login', [UserController::class,'login']);
+    Route::post('/register', [UserController::class,'register']);
+    Route::post('/logout', [UserController::class,'logout']);
+});
+
+Route::prefix('admin')->group(function(){
+    Route::post('/cheackadmin/{id}', [AdminController::class,'cheackadmin']);
+    Route::post('/createCourese/{id}', [AdminController::class,'createCourese']);
 });

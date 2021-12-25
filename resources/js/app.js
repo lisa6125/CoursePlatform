@@ -1,14 +1,20 @@
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
 
-import VueRouter from 'vue-router';
-import routes from './routes';
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all.js';
+
+import router from './routes';
+import store from './store/index.js'
+import Layout from './vue/view/Layout.vue';
 import swalPlugin from './plugins/VueSweetalert2';
 Vue.use(swalPlugin);
-Vue.use(VueRouter);
+
 
 const app = new Vue({
     el: '#app',
-    router: new VueRouter(routes)
+    store,
+    components:{ Layout },
+    router: router
 });
