@@ -33,6 +33,11 @@ export default new Vuex.Store({
       state.user.email = data.email
     }
   },
+  getters:{
+    userData(state){
+      return state.user;
+    }
+  },
   actions: {
   },
   modules: {

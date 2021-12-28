@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class Course extends Model
 {
     use HasFactory;
     protected $fillable = [
         'title',
-        'who_create',
         'usernum',
         'content',
         'pic1',
@@ -19,16 +18,11 @@ class Activity extends Model
         'price',
         'notice',
         'place',
-        'activity_start_time',
-        'activity_send_time',
+        'course_start_time',
+        'course_send_time',
         'signUp_start_time',
         'signUp_end_time',
         'place',
-        'connect_user_phone',
-        'connect_user_email',
-        'connect_user_pic',
-        'condition',
-        'state',
         'class1',
         'class2',
         'class3'

@@ -19,8 +19,10 @@
 <body>
     <div id="app">
         <Layout><Layout>
-    </div>
-</body>
-<script src="{{mix('js/app.js')}}">
+            </div>
+        </body>
+        <script src="{{ mix('js/vue-datepicker-local.js') }}"></script>
+        <link rel="stylesheet" href="{{mix('css/vue-datepicker-local.css') }}">
+        <script src="{{mix('js/app.js')}}">
 </script>
 </html>

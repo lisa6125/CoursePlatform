@@ -28,12 +28,12 @@
     開團管理
     </div>
   </div>
-  <div class="content flex-grow-1">
-    <div class="nav d-flex justify-content-end align-items-center">
-        <p class="mr-4" v-if="user.name">歡迎回來!{{user.name}}</p>
-        <router-link class="mr-4 ml-4" to='/' exact>Home</router-link>
-        <div v-if="user.name" @click="userLogout">Logout</div>
-        <div class="nav_btn" @click="sideBarClose = !sideBarClose"><i class="fas fa-bars"></i></div>
+  <div class="content flex-grow-1" :class="{close:sideBarClose}">
+    <div class="nav d-flex bd-highlight align-items-center">
+        <div class="nav_btn me-auto bd-highlight" @click="sideBarClose = !sideBarClose"><i class="fas fa-bars"></i></div>
+        <p class="bd-highlight" v-if="user.name">歡迎回來!{{user.name}}😊</p>
+        <router-link class="me-4 ms-4 bd-highlight" to='/' exact>Home</router-link>
+        <span v-if="user.name" @click="userLogout">Logout</span>
     </div>
     <div class="main">
     <router-view></router-view>
@@ -46,7 +46,7 @@ import {mapState, mapMutations} from "vuex";
 export default {
   data(){
     return {
-      sideBarClose:false
+      sideBarClose:true
     }
   },
   computed:{
@@ -121,9 +121,15 @@ export default {
   }
 }
 .content{
-  background-color:#f1f0f2;
+  background:url('/images/usercard.jpg');
+  background-size:1920px 1000px;
+  background-repeat:no-repeat;
+  background-position:center center;
     &.close{
-      width:100%;
+      .nav{
+        transition:0.3s all ease;
+        padding-left:10px;
+      }
     }
   .nav{
     position:absolute;
@@ -133,9 +139,12 @@ export default {
     height:80px;
     box-shadow:0 0 20px 1px rgba(0,0,0,0.05);
     position:fixed;
+    padding-left:252px;
     padding-right:150px;
     background-color:rgba(255,255,255,1);
-    a,div{
+    transition:0.3s all ease;
+    z-index:990;
+    a,span{
       cursor: pointer;
       margin-right:20px;
       font-weight:900;
@@ -149,11 +158,14 @@ export default {
       margin:0;
     }
     &_btn{
-      font-size:20px;
+      cursor: pointer;
+      font-size:28px;
+      margin-left:20px;
     }
   }
   .main{
-    margin-top:100px;
+    position:relative;
+    min-height:100vh;
   }
 }
 </style>

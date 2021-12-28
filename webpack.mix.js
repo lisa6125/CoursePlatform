@@ -14,4 +14,6 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .vue({ version: 2 })
     .copyDirectory('storage/images', 'public/images')
+    .js('node_modules/vue-datepicker-local/dist/vue-datepicker-local.js','public/js')  
+    .copy('node_modules/vue-datepicker-local/dist/vue-datepicker-local.css','public/css')
     .sass('resources/sass/app.scss', 'public/css');
