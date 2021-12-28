@@ -7245,6 +7245,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -7326,27 +7337,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (error) {
         new _this.$swal({
           icon: 'error',
-          title: '登入失敗',
+          title: '新增失敗',
           showCancelButton: false,
-          text: error.response.data.errors["account"],
           timer: 1500
         });
       });
     },
     sendEditCourse: function sendEditCourse() {
-      console.log(123);
-    },
-    getCourse: function getCourse() {
       var _this2 = this;
 
+      axios.post('/api/admin/updateCourse', this.choseEdit).then(function (res) {
+        new _this2.$swal({
+          icon: 'success',
+          title: '課程更新成功',
+          showCancelButton: false,
+          timer: 1500
+        });
+        _this2.showEditCard = false;
+
+        _this2.getCourse();
+      })["catch"](function (error) {
+        new _this2.$swal({
+          icon: 'error',
+          title: '更新失敗',
+          showCancelButton: false,
+          timer: 1500
+        });
+      });
+    },
+    getCourse: function getCourse() {
+      var _this3 = this;
+
       axios.get('/api/admin/getCourese').then(function (res) {
-        _this2.allCourse = _toConsumableArray(res.data); // new Date("2021-12-27T09:03:06.304Z").toLocaleString()
-        // this.allCourse.map((item)=>{
-        //     item.signUp_start_time = new Date(item.signUp_start_time).toLocaleString();
-        //     item.signUp_end_time = new Date(item.signUp_end_time).toLocaleString();
-        //     item.course_start_time = new Date(item.course_start_time).toLocaleString();
-        //     item.course_send_time = new Date(item.course_send_time).toLocaleString();
-        // })
+        _this3.allCourse = _toConsumableArray(res.data);
       });
     },
     editItem: function editItem(idx) {
@@ -7877,7 +7900,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newCourse {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newCourse .card {\n  width: 800px;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  width: 30%;\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newCourse {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newCourse .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newCourse .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newCourse .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newCourse .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -32750,90 +32773,96 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row mb-3" }, [
-                  _c("div", { staticClass: "row w-50 flex-grow-1 me-1" }, [
-                    _c("label", { staticClass: "col-2 mb-2 col-form-label" }, [
-                      _vm._v("照片1"),
-                    ]),
+                  _c("div", { staticClass: "col-4" }, [
+                    _c("label", [_vm._v("標籤1")]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-10" }, [
+                    _c("div", [
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.newCourse.pic1,
-                            expression: "newCourse.pic1",
+                            value: _vm.newCourse.class1,
+                            expression: "newCourse.class1",
                           },
                         ],
                         staticClass: "form-control",
-                        domProps: { value: _vm.newCourse.pic1 },
+                        domProps: { value: _vm.newCourse.class1 },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.newCourse, "pic1", $event.target.value)
+                            _vm.$set(
+                              _vm.newCourse,
+                              "class1",
+                              $event.target.value
+                            )
                           },
                         },
                       }),
                     ]),
                     _vm._v(" "),
-                    _c("label", { staticClass: "col-2 mb-2 col-form-label" }, [
-                      _vm._v("照片2"),
-                    ]),
+                    _c("label", [_vm._v("標籤2")]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-10" }, [
+                    _c("div", [
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.newCourse.pic2,
-                            expression: "newCourse.pic2",
+                            value: _vm.newCourse.class2,
+                            expression: "newCourse.class2",
                           },
                         ],
                         staticClass: "form-control",
-                        domProps: { value: _vm.newCourse.pic2 },
+                        domProps: { value: _vm.newCourse.class2 },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.newCourse, "pic2", $event.target.value)
+                            _vm.$set(
+                              _vm.newCourse,
+                              "class2",
+                              $event.target.value
+                            )
                           },
                         },
                       }),
                     ]),
                     _vm._v(" "),
-                    _c("label", { staticClass: "col-2 mb-2 col-form-label" }, [
-                      _vm._v("照片3"),
-                    ]),
+                    _c("label", [_vm._v("標籤3")]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-10" }, [
+                    _c("div", [
                       _c("input", {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.newCourse.pic3,
-                            expression: "newCourse.pic3",
+                            value: _vm.newCourse.class3,
+                            expression: "newCourse.class3",
                           },
                         ],
                         staticClass: "form-control",
-                        domProps: { value: _vm.newCourse.pic3 },
+                        domProps: { value: _vm.newCourse.class3 },
                         on: {
                           input: function ($event) {
                             if ($event.target.composing) {
                               return
                             }
-                            _vm.$set(_vm.newCourse, "pic3", $event.target.value)
+                            _vm.$set(
+                              _vm.newCourse,
+                              "class3",
+                              $event.target.value
+                            )
                           },
                         },
                       }),
                     ]),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "row w-50" }, [
+                  _c("div", { staticClass: "col-8" }, [
                     _c("div", { staticClass: "form-floating" }, [
                       _c("textarea", {
                         directives: [
@@ -32845,7 +32874,7 @@ var render = function () {
                           },
                         ],
                         staticClass: "form-control",
-                        staticStyle: { height: "130px" },
+                        staticStyle: { height: "210px" },
                         attrs: {
                           placeholder: "Leave a comment here",
                           id: "floatingTextarea2",
@@ -32874,88 +32903,138 @@ var render = function () {
                 _vm._v(" "),
                 _c("div", { staticClass: "row mb-3" }, [
                   _c("label", { staticClass: "col-1 col-form-label" }, [
-                    _vm._v("標籤1"),
+                    _vm._v("照片1"),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-3" }, [
+                  _c("div", { staticClass: "col-3 p-0" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.newCourse.class1,
-                          expression: "newCourse.class1",
+                          value: _vm.newCourse.pic1,
+                          expression: "newCourse.pic1",
                         },
                       ],
                       staticClass: "form-control",
                       attrs: { type: "email" },
-                      domProps: { value: _vm.newCourse.class1 },
+                      domProps: { value: _vm.newCourse.pic1 },
                       on: {
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.newCourse, "class1", $event.target.value)
+                          _vm.$set(_vm.newCourse, "pic1", $event.target.value)
                         },
                       },
                     }),
                   ]),
                   _vm._v(" "),
                   _c("label", { staticClass: "col-1 col-form-label" }, [
-                    _vm._v("標籤2"),
+                    _vm._v("照片2"),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-3" }, [
+                  _c("div", { staticClass: "col-3 p-0" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.newCourse.class2,
-                          expression: "newCourse.class2",
+                          value: _vm.newCourse.pic2,
+                          expression: "newCourse.pic2",
                         },
                       ],
                       staticClass: "form-control",
                       attrs: { type: "email" },
-                      domProps: { value: _vm.newCourse.class2 },
+                      domProps: { value: _vm.newCourse.pic2 },
                       on: {
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.newCourse, "class2", $event.target.value)
+                          _vm.$set(_vm.newCourse, "pic2", $event.target.value)
                         },
                       },
                     }),
                   ]),
                   _vm._v(" "),
                   _c("label", { staticClass: "col-1 col-form-label" }, [
-                    _vm._v("標籤3"),
+                    _vm._v("照片3"),
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-3" }, [
+                  _c("div", { staticClass: "col-3 p-0" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.newCourse.class3,
-                          expression: "newCourse.class3",
+                          value: _vm.newCourse.pic3,
+                          expression: "newCourse.pic3",
                         },
                       ],
                       staticClass: "form-control",
                       attrs: { type: "email" },
-                      domProps: { value: _vm.newCourse.class3 },
+                      domProps: { value: _vm.newCourse.pic3 },
                       on: {
                         input: function ($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.newCourse, "class3", $event.target.value)
+                          _vm.$set(_vm.newCourse, "pic3", $event.target.value)
                         },
                       },
                     }),
                   ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3 mx-auto" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.newCourse.pic1,
+                          expression: "newCourse.pic1",
+                        },
+                      ],
+                      staticClass: "picbox col-4 p-3",
+                    },
+                    [_c("img", { attrs: { src: _vm.newCourse.pic1 } })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.newCourse.pic2,
+                          expression: "newCourse.pic2",
+                        },
+                      ],
+                      staticClass: "picbox col-4 p-3",
+                    },
+                    [_c("img", { attrs: { src: _vm.newCourse.pic2 } })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.newCourse.pic3,
+                          expression: "newCourse.pic3",
+                        },
+                      ],
+                      staticClass: "picbox col-4 p-3",
+                    },
+                    [_c("img", { attrs: { src: _vm.newCourse.pic3 } })]
+                  ),
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "d-flex justify-content-end" }, [
@@ -33443,7 +33522,7 @@ var render = function () {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row mb-3 mx-auto" }, [
-                  _c("div", { staticClass: "picbox col-4 p-0 me-4" }, [
+                  _c("div", { staticClass: "picbox col-4 p-3" }, [
                     _c("img", { attrs: { src: _vm.choseEdit.pic1 } }),
                   ]),
                   _vm._v(" "),
@@ -33458,7 +33537,7 @@ var render = function () {
                           expression: "choseEdit.pic2",
                         },
                       ],
-                      staticClass: "picbox col-4 p-0 me-4",
+                      staticClass: "picbox col-4 p-3",
                     },
                     [_c("img", { attrs: { src: _vm.choseEdit.pic2 } })]
                   ),
@@ -33474,7 +33553,7 @@ var render = function () {
                           expression: "choseEdit.pic3",
                         },
                       ],
-                      staticClass: "picbox col-4 p-0",
+                      staticClass: "picbox col-4 p-3",
                     },
                     [_c("img", { attrs: { src: _vm.choseEdit.pic3 } })]
                   ),

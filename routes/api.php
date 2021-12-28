@@ -34,4 +34,6 @@ Route::prefix('admin')->group(function(){
     Route::post('/cheackadmin/{id}', [AdminController::class,'cheackadmin']);
     Route::post('/createCourese', [AdminController::class,'createCourese']);
     Route::get('/getCourese', [AdminController::class,'getCourese']);
+    Route::post('/updateCourse', [AdminController::class,'updateCourse']);
+
 });

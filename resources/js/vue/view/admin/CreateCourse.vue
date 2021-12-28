@@ -74,39 +74,50 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="row w-50 flex-grow-1 me-1">
-                                <label class="col-2 mb-2 col-form-label">照片1</label>
-                                <div class="col-10">
-                                <input class="form-control" v-model="newCourse.pic1">
+                            <div class="col-4">
+                                <label>標籤1</label>
+                                <div>
+                                <input class="form-control" v-model="newCourse.class1">
                                 </div>
-                                <label class="col-2 mb-2 col-form-label">照片2</label>
-                                <div class="col-10">
-                                <input class="form-control" v-model="newCourse.pic2">
+                                <label>標籤2</label>
+                                <div>
+                                <input class="form-control" v-model="newCourse.class2">
                                 </div>
-                                <label class="col-2 mb-2 col-form-label">照片3</label>
-                                <div class="col-10">
-                                <input class="form-control" v-model="newCourse.pic3">
+                                <label>標籤3</label>
+                                <div>
+                                <input class="form-control" v-model="newCourse.class3">
                                 </div>
                             </div>
-                            <div class="row w-50">
+                            <div class="col-8">
                                 <div class="form-floating">
-                                <textarea v-model="newCourse.content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 130px"></textarea>
+                                <textarea v-model="newCourse.content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 210px"></textarea>
                                 <label for="floatingTextarea2">課程主要內容</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-1 col-form-label">標籤1</label>
-                            <div class="col-3">
-                            <input type="email" class="form-control" v-model="newCourse.class1">
+                            <label class="col-1 col-form-label">照片1</label>
+                            <div class="col-3 p-0">
+                            <input type="email" class="form-control" v-model="newCourse.pic1">
                             </div>
-                            <label class="col-1 col-form-label">標籤2</label>
-                            <div class="col-3">
-                            <input type="email" class="form-control" v-model="newCourse.class2">
+                            <label class="col-1 col-form-label">照片2</label>
+                            <div class="col-3 p-0">
+                            <input type="email" class="form-control" v-model="newCourse.pic2">
                             </div>
-                            <label class="col-1 col-form-label">標籤3</label>
-                            <div class="col-3">
-                            <input type="email" class="form-control" v-model="newCourse.class3">
+                            <label class="col-1 col-form-label">照片3</label>
+                            <div class="col-3 p-0">
+                            <input type="email" class="form-control" v-model="newCourse.pic3">
+                            </div>
+                        </div>
+                        <div class="row mb-3 mx-auto">
+                            <div class="picbox col-4 p-3" v-show="newCourse.pic1">
+                                <img :src="newCourse.pic1" />
+                            </div>
+                            <div class="picbox col-4 p-3" v-show="newCourse.pic2">
+                                <img :src="newCourse.pic2" />
+                            </div>
+                            <div class="picbox col-4 p-3" v-show="newCourse.pic3">
+                                <img :src="newCourse.pic3" />
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
@@ -201,13 +212,13 @@
                             </div>
                         </div>
                         <div class="row mb-3 mx-auto">
-                            <div class="picbox col-4 p-0 me-4">
+                            <div class="picbox col-4 p-3">
                                 <img :src="choseEdit.pic1" />
                             </div>
-                            <div class="picbox col-4 p-0 me-4" v-show="choseEdit.pic2">
+                            <div class="picbox col-4 p-3" v-show="choseEdit.pic2">
                                 <img :src="choseEdit.pic2" />
                             </div>
-                            <div class="picbox col-4 p-0" v-show="choseEdit.pic3">
+                            <div class="picbox col-4 p-3" v-show="choseEdit.pic3">
                                 <img :src="choseEdit.pic3" />
                             </div>
                         </div>
@@ -305,29 +316,36 @@ export default {
             }).catch((error) =>{
                 new this.$swal({
                 icon: 'error',
-                title: '登入失敗',
+                title: '新增失敗',
                 showCancelButton: false,
-                text:error.response.data.errors["account"],
                 timer: 1500
                 })
             })
         },
         sendEditCourse(){
-            console.log(123)
+            axios.post('/api/admin/updateCourse', this.choseEdit)
+            .then((res) =>{
+                new this.$swal({
+                icon: 'success',
+                title: '課程更新成功',
+                showCancelButton: false,
+                timer: 1500
+                })
+                this.showEditCard = false;
+                this.getCourse();
+            }).catch((error) =>{
+                new this.$swal({
+                icon: 'error',
+                title: '更新失敗',
+                showCancelButton: false,
+                timer: 1500
+                })
+            })
         },
         getCourse(){
             axios.get('/api/admin/getCourese')
             .then((res)=>{
                 this.allCourse = [...res.data];
-                // new Date("2021-12-27T09:03:06.304Z").toLocaleString()
-                // this.allCourse.map((item)=>{
-                //     item.signUp_start_time = new Date(item.signUp_start_time).toLocaleString();
-                //     item.signUp_end_time = new Date(item.signUp_end_time).toLocaleString();
-                //     item.course_start_time = new Date(item.course_start_time).toLocaleString();
-                //     item.course_send_time = new Date(item.course_send_time).toLocaleString();
-                // })
-                
-                
             })
         },
         editItem(idx){
@@ -408,8 +426,28 @@ a{
     left:0;
     .card{
         width:800px;
+        height:600px;
+        overflow:auto;
         background:#fff;
         position:absolute;
+        &::-webkit-scrollbar-track
+        {
+            border-radius: 8px;
+            margin-top:10px;
+            margin-bottom:10px;
+
+        }
+
+        &::-webkit-scrollbar
+        {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb
+        {
+            border-radius: 8px;
+            background-color: #d4d4d4;
+        }
         top:130px;
         left:50%;
         transform:translateX(-50%);
@@ -452,7 +490,6 @@ a{
         transform:translateX(-50%);
     }
     .picbox{
-        width:30%;
         height:200px;
         img{
             width:100%;
