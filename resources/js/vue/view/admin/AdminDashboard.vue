@@ -2,7 +2,8 @@
 <div class="dashboard w-100 d-flex">
   <div class="sidebar" :class="{close:sideBarClose}">
     <div class="user_pic mx-auto my-3 rounded-circle overflow-hidden">
-      <img :src="user.pic">
+      <img v-if="user.pic" :src="user.pic" />
+      <img v-else src="/images/userdefault.jpg" />
     </div>
     <div class="user_name py-3 px-5">
     {{user.name}}
@@ -21,6 +22,12 @@
     <i class="fas fa-chalkboard-teacher"></i>
     <router-link class="text-decoration-none" to='/adminpage/createcourse' >
     課程管理
+    </router-link>
+    </div>
+    <div class="adminpage py-3 px-5">
+    <i class="fas fa-receipt"></i>
+    <router-link class="text-decoration-none" to='/adminpage/creategroup' >
+    我的開團
     </router-link>
     </div>
     <div class="adminpage py-3 px-5">
@@ -106,7 +113,7 @@ export default {
     img{
       width:100%;
       height:100%;
-      object-fit:contain;
+      object-fit:cover;
     }
   }
   .adminpage,a{

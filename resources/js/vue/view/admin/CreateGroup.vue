@@ -2,11 +2,11 @@
     <div class="text-2xl text-gray-800 course">
         <div class="course-setting card my-5 mx-auto p-1">
                 <div class="addbox">
-                    <span class="addBtn fs-6 rounded-pill py-3 px-4" @click="showCard =true"><i class="fas fa-plus me-1"></i>新增課程</span>
+                    <span class="addBtn fs-6 rounded-pill py-3 px-4" @click="showCard =true"><i class="fas fa-plus me-1"></i>新增開團</span>
                 </div>
-                <span class="fs-2 m-3 ms-5">課程管理</span>
+                <span class="fs-2 m-3 ms-5">我的開團</span>
             <div class="course-lists p-3 d-flex flex-wrap justify-content-center align-items-center">
-                <div class="item p-2 me-3 mb-3" v-for="item,idx in allCourse" :key="item.id">
+                <div class="item p-2 me-3 mb-3" v-for="item,idx in allGroup" :key="item.id">
                     <div class="pic">
                         <img :src="item.pic1"/>
                     </div>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="title w-100 fs-4 text-center my-2 mx-0">{{item.title}}</div>
                     <div class="signUptime mb-2"><span>登記時間:</span><br> <span style="font-weight:300;">{{timeChanger(item.signUp_start_time)}}<br>~{{timeChanger(item.signUp_end_time)}}</span></div>
-                    <div class="coursetime mb-2"><span>課程時間:</span><br><span style="font-weight:300;">{{timeChanger(item.course_start_time)}}<br>~{{timeChanger(item.course_send_time)}}</span></div>
+                    <div class="coursetime mb-2"><span>課程時間:</span><br><span style="font-weight:300;">{{timeChanger(item.activity_start_time)}}<br>~{{timeChanger(item.activity_send_time)}}</span></div>
                     <div class="usernum"><span class="me-1">參與人數:</span>{{item.usernum}}</div>
                     <div class="price mb-1"><span class="me-1">費用:</span>{{item.price}}</div>
                     <div class="place"><span class="me-1">地點:</span>{{item.place}}</div>
@@ -28,101 +28,105 @@
             </div>
         </div>
         <transition name="fade">
-            <div v-show="showCard" class="newCourse">
+            <div v-show="showCard" class="newGroup">
                 <div class="card">
                     <div class="card-body p-4">
                         <div class="row mb-3">
                             <div class="row w-50 flex-grow-1 me-1">
                                 <label class="col-3 col-form-label">登記開始</label>
                                 <div class="col-7">
-                                    <vue-datepicker-local v-model="newCourse.signUp_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                    <vue-datepicker-local v-model="newGroup.signUp_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
                                 </div>
                                 <label for="inputEmail3" class="col-3 col-form-label">登記結束</label>
                                 <div class="col-7">
-                                    <vue-datepicker-local v-model="newCourse.signUp_end_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                    <vue-datepicker-local v-model="newGroup.signUp_end_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
                                 </div>
                             </div>
                             <div class="row w-50">
-                                <label for="inputEmail3" class="col-3 col-form-label">課程開始</label>
+                                <label for="inputEmail3" class="col-3 col-form-label">活動開始</label>
                                 <div class="col-7">
-                                    <vue-datepicker-local v-model="newCourse.course_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                    <vue-datepicker-local v-model="newGroup.activity_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
                                 </div>
-                                <label for="inputEmail3" class="col-3 col-form-label">課程結束</label>
+                                <label for="inputEmail3" class="col-3 col-form-label">活動結束</label>
                                 <div class="col-7">
-                                    <vue-datepicker-local v-model="newCourse.course_send_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                    <vue-datepicker-local v-model="newGroup.activity_send_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-1 col-form-label">名稱</label>
-                            <div class="col-5">
-                            <input class="form-control" v-model="newCourse.title">
+                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                <span style="width:50px">名稱</span>
+                                <input class="form-control" v-model="newGroup.title">
                             </div>
-                            <label class="col-1 col-form-label">地點</label>
-                            <div class="col-5">
-                            <input class="form-control" v-model="newCourse.place">
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">地點</span>
+                                <input class="form-control" v-model="newGroup.place">
+                            </div>
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">價錢</span>
+                                <input class="form-control" v-model="newGroup.price">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-1 col-form-label">價錢</label>
+                            <label class="col-1 col-form-label">條件</label>
                             <div class="col-5">
-                            <input class="form-control" v-model="newCourse.price">
+                                <input class="form-control" v-model="newGroup.condition">
                             </div>
                             <label class="col-1 col-form-label">提醒</label>
                             <div class="col-5">
-                            <input class="form-control" v-model="newCourse.notice">
+                                <input class="form-control" v-model="newGroup.notice">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4">
                                 <label>標籤1</label>
                                 <div>
-                                <input class="form-control" v-model="newCourse.class1">
+                                <input class="form-control" v-model="newGroup.class1">
                                 </div>
                                 <label>標籤2</label>
                                 <div>
-                                <input class="form-control" v-model="newCourse.class2">
+                                <input class="form-control" v-model="newGroup.class2">
                                 </div>
                                 <label>標籤3</label>
                                 <div>
-                                <input class="form-control" v-model="newCourse.class3">
+                                <input class="form-control" v-model="newGroup.class3">
                                 </div>
                             </div>
                             <div class="col-8">
                                 <div class="form-floating">
-                                <textarea v-model="newCourse.content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 210px"></textarea>
-                                <label for="floatingTextarea2">課程主要內容</label>
+                                <textarea v-model="newGroup.content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 210px"></textarea>
+                                <label for="floatingTextarea2">活動主要內容</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-1 col-form-label">照片1</label>
                             <div class="col-3 p-0">
-                            <input type="email" class="form-control" v-model="newCourse.pic1">
+                            <input type="email" class="form-control" v-model="newGroup.pic1">
                             </div>
                             <label class="col-1 col-form-label">照片2</label>
                             <div class="col-3 p-0">
-                            <input type="email" class="form-control" v-model="newCourse.pic2">
+                            <input type="email" class="form-control" v-model="newGroup.pic2">
                             </div>
                             <label class="col-1 col-form-label">照片3</label>
                             <div class="col-3 p-0">
-                            <input type="email" class="form-control" v-model="newCourse.pic3">
+                            <input type="email" class="form-control" v-model="newGroup.pic3">
                             </div>
                         </div>
                         <div class="row mb-3 mx-auto">
-                            <div class="picbox col-4 p-3" v-show="newCourse.pic1">
-                                <img :src="newCourse.pic1" />
+                            <div class="picbox col-4 p-3" v-show="newGroup.pic1">
+                                <img :src="newGroup.pic1" />
                             </div>
-                            <div class="picbox col-4 p-3" v-show="newCourse.pic2">
-                                <img :src="newCourse.pic2" />
+                            <div class="picbox col-4 p-3" v-show="newGroup.pic2">
+                                <img :src="newGroup.pic2" />
                             </div>
-                            <div class="picbox col-4 p-3" v-show="newCourse.pic3">
-                                <img :src="newCourse.pic3" />
+                            <div class="picbox col-4 p-3" v-show="newGroup.pic3">
+                                <img :src="newGroup.pic3" />
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-outline-secondary me-2" @click="showCard = false">取消</button>
-                        <button type="button" class="btn btn-outline-primary" @click="sendNewCourse">送出</button>
+                        <button type="button" class="btn btn-outline-primary" @click="sendNewGroup">送出</button>
                         </div>
                     </div>
                 </div>
@@ -147,32 +151,49 @@
                             <div class="row w-50">
                                 <label for="inputEmail3" class="col-3 col-form-label">課程開始</label>
                                 <div class="col-7">
-                                    <vue-datepicker-local v-model="choseEdit.course_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                    <vue-datepicker-local v-model="choseEdit.activity_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
                                 </div>
                                 <label for="inputEmail3" class="col-3 col-form-label">課程結束</label>
                                 <div class="col-7">
-                                    <vue-datepicker-local v-model="choseEdit.course_send_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                    <vue-datepicker-local v-model="choseEdit.activity_send_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-1 col-form-label">名稱</label>
-                            <div class="col-5">
-                            <input class="form-control" v-model="choseEdit.title">
+                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                <span style="width:50px">名稱</span>
+                                <input class="form-control" v-model="choseEdit.title">
                             </div>
-                            <label class="col-1 col-form-label">地點</label>
-                            <div class="col-5">
-                            <input class="form-control" v-model="choseEdit.place">
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">地點</span>
+                                <input class="form-control" v-model="choseEdit.place">
+                            </div>
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">價錢</span>
+                                <input class="form-control" v-model="choseEdit.price">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-1 col-form-label">價錢</label>
-                            <div class="col-5">
-                            <input class="form-control" v-model="choseEdit.price">
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">條件</span>
+                                <input class="form-control" v-model="choseEdit.condition">
                             </div>
-                            <label class="col-1 col-form-label">提醒</label>
-                            <div class="col-5">
-                            <input class="form-control" v-model="choseEdit.notice">
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">提醒</span>
+                                <input class="form-control" v-model="choseEdit.notice">
+                            </div>
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">狀態</span>
+                                <select class="form-select" aria-label="Default select example" v-model="choseEdit.state">
+                                <option selected>召集中</option>
+                                <!-- <option value="審核">審核</option>
+                                <option value="審核通過">審核通過</option>
+                                <option value="審核不通過">審核不通過</option> -->
+                                <option value="確認開團">確認開團</option>
+                                <option value="開團失敗">開團失敗</option>
+                                <option value="報名截止">報名截止</option>
+                                <option value="已結束">已結束</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -223,9 +244,9 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-outline-danger me-2" @click="delteCourse">刪除課程</button>
+                        <button type="button" class="btn btn-outline-danger me-2" @click="delteGroup">刪除活動</button>
                         <button type="button" class="btn btn-outline-secondary me-2" @click="showEditCard = false">取消編輯</button>
-                        <button type="button" class="btn btn-outline-primary" @click="sendEditCourse">編輯送出</button>
+                        <button type="button" class="btn btn-outline-primary" @click="sendEditGroup">編輯送出</button>
                         </div>
                     </div>
                 </div>
@@ -246,7 +267,7 @@ export default {
             showCard:false,
             showEditCard:false,
             choseEdit:'',
-            newCourse:{
+            newGroup:{
                 title:'',
                 content:'',
                 pic1:'',
@@ -255,16 +276,17 @@ export default {
                 price:'',
                 notice:'',
                 place:'',
-                course_start_time:new Date(),
-                course_send_time:new Date(),
+                activity_start_time:new Date(),
+                activity_send_time:new Date(),
                 signUp_start_time:new Date(),
                 signUp_end_time:new Date(),
+                condition:'',
                 class1:'',
                 class2:'',
                 class3:'',
 
             },
-            allCourse:[]
+            allGroup:[]
         }
     },
   computed:{
@@ -285,17 +307,21 @@ export default {
           var day = time.getDay();
           return day === 0 || day === 6;
         },
-        sendNewCourse(){
-            axios.post('/api/admin/createCourese', this.newCourse)
+        sendNewGroup(){
+            this.newGroup.who_create = this.user.id;
+            this.newGroup.connect_user_phone = this.user.phone;
+            this.newGroup.connect_user_email = this.user.email;
+            this.newGroup.connect_user_pic = this.user.pic;
+            axios.post('/api/admin/createGroup', this.newGroup)
             .then((res) =>{
                 new this.$swal({
                 icon: 'success',
-                title: '新建課程成功',
+                title: res.data,
                 showCancelButton: false,
                 timer: 1500
                 })
                 this.showCard = false;
-                this.newCourse = {
+                this.newGroup = {
                     title:'',
                     content:'',
                     pic1:'',
@@ -304,36 +330,36 @@ export default {
                     price:'',
                     notice:'',
                     place:'',
-                    course_start_time:new Date(),
-                    course_send_time:new Date(),
+                    activity_start_time:new Date(),
+                    activity_send_time:new Date(),
                     signUp_start_time:new Date(),
                     signUp_end_time:new Date(),
+                    condition:'',
                     class1:'',
                     class2:'',
                     class3:'',
-
                 }
-                this.getCourse();
+                this.getGroup();
             }).catch((error) =>{
                 new this.$swal({
                 icon: 'error',
-                title: '新增失敗',
+                title: '刪除失敗',
                 showCancelButton: false,
                 timer: 1500
                 })
             })
         },
-        sendEditCourse(){
-            axios.post('/api/admin/updateCourse', this.choseEdit)
+        sendEditGroup(){
+            axios.post('/api/admin/updateGroup', this.choseEdit)
             .then((res) =>{
                 new this.$swal({
                 icon: 'success',
-                title: '課程更新成功',
+                title: res.data,
                 showCancelButton: false,
                 timer: 1500
                 })
                 this.showEditCard = false;
-                this.getCourse();
+                this.getGroup();
             }).catch((error) =>{
                 new this.$swal({
                 icon: 'error',
@@ -343,39 +369,52 @@ export default {
                 })
             })
         },
-        getCourse(){
-            axios.get('/api/admin/getCourese')
+        getGroup(){
+            axios.get('/api/admin/getGroup/'+this.user.id)
             .then((res)=>{
-                this.allCourse = [...res.data];
+                this.allGroup = [...res.data];
             })
         },
         editItem(idx){
             this.showEditCard = true;
-            this.choseEdit = {...this.allCourse[idx]}
+            this.choseEdit = {...this.allGroup[idx]}
         },
-        delteCourse(){
-            axios.delete('/api/admin/destroyCourse/'+this.choseEdit.id)
-            .then((res) =>{
-                new this.$swal({
-                icon: 'success',
-                title: '課程刪除成功',
-                showCancelButton: false,
-                timer: 1500
-                })
-                this.showEditCard = false;
-                this.getCourse();
-            }).catch((error) =>{
-                new this.$swal({
-                icon: 'error',
-                title: '課程刪除失敗',
-                showCancelButton: false,
-                timer: 1500
-                })
+        delteGroup(){
+            new this.$swal({
+            title: '確定是否刪除',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: '刪除',
+            denyButtonText: '取消',
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios.delete('/api/admin/destroyGroup/'+this.choseEdit.id)
+                    .then((res) =>{
+                        new this.$swal({
+                        icon: 'success',
+                        title: res.data,
+                        showCancelButton: false,
+                        timer: 1500
+                        })
+                        this.showEditCard = false;
+                        this.getGroup();
+                    }).catch((error) =>{
+                        new this.$swal({
+                        icon: 'error',
+                        title: '刪除失敗',
+                        showCancelButton: false,
+                        timer: 1500
+                        })
+                    })
+                } else if (result.isDenied) {
+                    this.showEditCard=false;
+                }
             })
         },
     },
     created(){
-        this.getCourse();
+        this.getGroup();
     }
 }
 </script>
@@ -432,14 +471,13 @@ a{
         z-index:991;
     }
     .addBtn{
-        box-shadow:0px 0px 15px 2px rgba(0, 0, 0,0.2);
         margin-right:10px;
         background:#769fdb;
         cursor:pointer;
         color:#fff;
     }
 }
-.newCourse{
+.newGroup{
     width:100%;
     height:100%;
     background:rgba(0, 0, 0,0.5);

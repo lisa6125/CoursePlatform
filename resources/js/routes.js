@@ -12,6 +12,7 @@ import NotFound from './vue/view/NotFound';
 
 import AdminDashboard from './vue/view/admin/AdminDashboard.vue';
 import CreateCourse from './vue/view/admin/CreateCourse.vue';
+import CreateGroup from './vue/view/admin/CreateGroup.vue';
 import Profile from './vue/view/admin/Profile.vue';
 
 
@@ -58,7 +59,15 @@ const routes = [
                 name: 'CreateCourse',
                 component:CreateCourse,
                 meta: {
-                title: '用戶管理',
+                title: '課程管理',
+                }
+            },
+            {
+                path: '/adminpage/creategroup',
+                name: 'CreateGroup',
+                component:CreateGroup,
+                meta: {
+                title: '我的開團',
                 }
             },
         ],

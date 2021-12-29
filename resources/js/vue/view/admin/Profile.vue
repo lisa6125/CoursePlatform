@@ -3,7 +3,8 @@
         <div class="user_card d-flex">
             <div class="user_imgbox d-flex flex-column justify-content-center align-items-center">
                 <div class="pic mb-3">
-                <img :src="getUser.pic" />
+                <img v-if="getUser.pic" :src="getUser.pic" />
+                <img v-else src="/images/userdefault.jpg" />
                 </div>
                 <p>{{getUser.name}}</p>
             </div>
@@ -167,7 +168,7 @@ export default {
             img{
                 width:100%;
                 height:100%;
-                object-fit:contain;
+                object-fit:cover;
             }
         }
     }

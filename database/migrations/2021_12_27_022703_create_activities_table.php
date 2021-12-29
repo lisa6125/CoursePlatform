@@ -29,6 +29,11 @@ class CreateActivitiesTable extends Migration
             $table->string('activity_send_time');
             $table->string('signUp_start_time');
             $table->string('signUp_end_time');
+            $table->string('connect_user_phone');
+            $table->string('connect_user_email');
+            $table->string('connect_user_pic');
+            $table->string('condition');
+            $table->enum('state',['審核','審核通過','審核不通過','召集中','確認開團','開團失敗','報名截止','已結束'])->default('審核');
             $table->string('class1');
             $table->string('class2')->nullable();
             $table->string('class3')->nullable();

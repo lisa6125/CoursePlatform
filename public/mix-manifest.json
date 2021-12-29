@@ -4,5 +4,6 @@
     "/css/app.css": "/css/app.css",
     "/images/icon1.png": "/images/icon1.png",
     "/images/usercard.jpg": "/images/usercard.jpg",
-    "/css/vue-datepicker-local.css": "/css/vue-datepicker-local.css"
+    "/css/vue-datepicker-local.css": "/css/vue-datepicker-local.css",
+    "/images/userdefault.jpg": "/images/userdefault.jpg"
 }

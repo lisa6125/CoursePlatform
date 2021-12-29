@@ -33,7 +33,12 @@ Route::prefix('user')->group(function(){
 Route::prefix('admin')->group(function(){
     Route::post('/cheackadmin/{id}', [AdminController::class,'cheackadmin']);
     Route::post('/createCourese', [AdminController::class,'createCourese']);
+    Route::post('/createGroup', [AdminController::class,'createGroup']);
     Route::get('/getCourese', [AdminController::class,'getCourese']);
+    Route::get('/getGroup/{id}', [AdminController::class,'getGroup']);
     Route::post('/updateCourse', [AdminController::class,'updateCourse']);
+    Route::post('/updateGroup', [AdminController::class,'updateGroup']);
+    Route::delete('/destroyCourse/{id}', [AdminController::class,'destroyCourse']);
+    Route::delete('/destroyGroup/{id}', [AdminController::class,'destroyGroup']);
 
 });
