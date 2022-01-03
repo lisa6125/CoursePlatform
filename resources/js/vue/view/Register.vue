@@ -49,7 +49,11 @@ export default {
                 email: '',
                 admin:false,
                 password:'',
-                password_confirmation:''
+                password_confirmation:'',
+                courseyoujoin:0,
+                courseyouopen:0,
+                activityyoujoin:0,
+                activityyouopen:0,
             },
             errors:[]
         }

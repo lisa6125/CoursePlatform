@@ -36,9 +36,10 @@ Route::prefix('admin')->group(function(){
     Route::post('/createGroup', [AdminController::class,'createGroup']);
     Route::get('/getCourese', [AdminController::class,'getCourese']);
     Route::get('/getGroup/{id}', [AdminController::class,'getGroup']);
+    Route::get('/getOtherUserGroup/{id}', [AdminController::class,'getOtherUserGroup']);
     Route::post('/updateCourse', [AdminController::class,'updateCourse']);
     Route::post('/updateGroup', [AdminController::class,'updateGroup']);
-    Route::delete('/destroyCourse/{id}', [AdminController::class,'destroyCourse']);
-    Route::delete('/destroyGroup/{id}', [AdminController::class,'destroyGroup']);
+    Route::post('/destroyCourse/{id}', [AdminController::class,'destroyCourse']);
+    Route::post('/destroyGroup/{id}', [AdminController::class,'destroyGroup']);
 
 });

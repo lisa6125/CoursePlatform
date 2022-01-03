@@ -13,13 +13,17 @@ import NotFound from './vue/view/NotFound';
 import AdminDashboard from './vue/view/admin/AdminDashboard.vue';
 import CreateCourse from './vue/view/admin/CreateCourse.vue';
 import CreateGroup from './vue/view/admin/CreateGroup.vue';
+import AdminGroup from './vue/view/admin/AdminGroup.vue';
 import Profile from './vue/view/admin/Profile.vue';
 
 
 const routes = [
     {
         path: '*',
-        component: NotFound
+        component: NotFound,
+        meta: {
+        title: 'error',
+        },
     },
     {
         path: '/',
@@ -31,12 +35,18 @@ const routes = [
     },
     {
         path: '/register',
-        component: Register
+        component: Register,
+        meta: {
+        title: '註冊',
+        },
     },
     {
         path: '/login',
         component: Login,
-        name: 'Login'
+        name: 'Login',
+        meta: {
+        title: '登入',
+        },
     },
     {
         path: '/adminpage',
@@ -68,6 +78,14 @@ const routes = [
                 component:CreateGroup,
                 meta: {
                 title: '我的開團',
+                }
+            },
+            {
+                path: '/adminpage/adminGroup',
+                name: 'AdminGroup',
+                component:AdminGroup,
+                meta: {
+                title: '開團管理',
                 }
             },
         ],

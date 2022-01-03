@@ -46,7 +46,11 @@ class UserController extends Controller
             'admin' => false,
             'pic' => $request->pic,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'courseyoujoin'=>$request->courseyoujoin,
+            'courseyouopen'=>$request->courseyouopen,
+            'activityyoujoin'=>$request->activityyoujoin,
+            'activityyouopen'=>$request->activityyouopen,
         ]);
     }
     public function update(Request $request)

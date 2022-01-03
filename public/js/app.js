@@ -10005,7 +10005,11 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         admin: false,
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        courseyoujoin: 0,
+        courseyouopen: 0,
+        activityyoujoin: 0,
+        activityyouopen: 0
       },
       errors: []
     };
@@ -10136,6 +10140,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -10172,6 +10178,296 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue_datepicker_local__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-datepicker-local */ "./node_modules/vue-datepicker-local/src/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    VueDatepickerLocal: vue_datepicker_local__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      time: new Date(),
+      showCard: false,
+      showEditCard: false,
+      choseEdit: '',
+      newGroup: {
+        title: '',
+        content: '',
+        pic1: '',
+        pic2: '',
+        pic3: '',
+        price: '',
+        notice: '',
+        place: '',
+        activity_start_time: new Date(),
+        activity_send_time: new Date(),
+        signUp_start_time: new Date(),
+        signUp_end_time: new Date(),
+        condition: '',
+        class1: '',
+        class2: '',
+        class3: ''
+      },
+      allGroup: []
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)(["user"])),
+  methods: {
+    // createItems(){
+    //     console.log(this.user.id)
+    //     axios.post(`/api/admin/createCourese/${this.user.id}`)
+    //     .then((res)=>{
+    //         console.log(res.data)
+    //     })
+    // },
+    timeChanger: function timeChanger(time) {
+      return new Date(time).toLocaleString();
+    },
+    sendEditGroup: function sendEditGroup() {
+      var _this = this;
+
+      axios.post('/api/admin/updateGroup', this.choseEdit).then(function (res) {
+        new _this.$swal({
+          icon: 'success',
+          title: res.data,
+          showCancelButton: false,
+          timer: 1500
+        });
+        _this.showEditCard = false;
+
+        _this.getOtherUserGroup();
+      })["catch"](function (error) {
+        new _this.$swal({
+          icon: 'error',
+          title: '更新失敗',
+          showCancelButton: false,
+          timer: 1500
+        });
+      });
+    },
+    getOtherUserGroup: function getOtherUserGroup() {
+      var _this2 = this;
+
+      axios.get('/api/admin/getOtherUserGroup/' + this.user.id).then(function (res) {
+        _this2.allGroup = _objectSpread({}, res.data);
+      });
+    },
+    editItem: function editItem(idx) {
+      this.showEditCard = true;
+      this.choseEdit = _objectSpread({}, this.allGroup[idx]);
+    },
+    delteGroup: function delteGroup() {
+      var _this3 = this;
+
+      new this.$swal({
+        title: '確定是否刪除',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: '刪除',
+        denyButtonText: '取消'
+      }).then(function (result) {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          axios.post('/api/admin/destroyGroup/' + _this3.choseEdit.id, {
+            id: _this3.user.id
+          }).then(function (res) {
+            new _this3.$swal({
+              icon: 'success',
+              title: res.data,
+              showCancelButton: false,
+              timer: 1500
+            });
+            _this3.showEditCard = false;
+
+            _this3.getGroup();
+          })["catch"](function (error) {
+            new _this3.$swal({
+              icon: 'error',
+              title: '刪除失敗',
+              showCancelButton: false,
+              timer: 1500
+            });
+          });
+        } else if (result.isDenied) {
+          _this3.showEditCard = false;
+        }
+      });
+    }
+  },
+  created: function created() {
+    this.getOtherUserGroup();
+  }
 });
 
 /***/ }),
@@ -10493,6 +10789,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sendNewCourse: function sendNewCourse() {
       var _this = this;
 
+      this.newCourse.who = this.user.id;
       axios.post('/api/admin/createCourese', this.newCourse).then(function (res) {
         new _this.$swal({
           icon: 'success',
@@ -10565,7 +10862,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     delteCourse: function delteCourse() {
       var _this4 = this;
 
-      axios["delete"]('/api/admin/destroyCourse/' + this.choseEdit.id).then(function (res) {
+      axios.post('/api/admin/destroyCourse/' + this.choseEdit.id, {
+        id: this.user.id
+      }).then(function (res) {
         new _this4.$swal({
           icon: 'success',
           title: '課程刪除成功',
@@ -10935,6 +11234,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.newGroup.connect_user_phone = this.user.phone;
       this.newGroup.connect_user_email = this.user.email;
       this.newGroup.connect_user_pic = this.user.pic;
+      this.newGroup.who = this.user.id;
       axios.post('/api/admin/createGroup', this.newGroup).then(function (res) {
         new _this.$swal({
           icon: 'success',
@@ -10978,7 +11278,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post('/api/admin/updateGroup', this.choseEdit).then(function (res) {
         new _this2.$swal({
           icon: 'success',
-          title: res.data,
+          title: '更新成功',
           showCancelButton: false,
           timer: 1500
         });
@@ -11017,7 +11317,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (result) {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          axios["delete"]('/api/admin/destroyGroup/' + _this4.choseEdit.id).then(function (res) {
+          axios.post('/api/admin/destroyGroup/' + _this4.choseEdit.id, {
+            id: _this4.user.id
+          }).then(function (res) {
             new _this4.$swal({
               icon: 'success',
               title: res.data,
@@ -11329,7 +11631,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vue_view_admin_AdminDashboard_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./vue/view/admin/AdminDashboard.vue */ "./resources/js/vue/view/admin/AdminDashboard.vue");
 /* harmony import */ var _vue_view_admin_CreateCourse_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./vue/view/admin/CreateCourse.vue */ "./resources/js/vue/view/admin/CreateCourse.vue");
 /* harmony import */ var _vue_view_admin_CreateGroup_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue/view/admin/CreateGroup.vue */ "./resources/js/vue/view/admin/CreateGroup.vue");
-/* harmony import */ var _vue_view_admin_Profile_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/view/admin/Profile.vue */ "./resources/js/vue/view/admin/Profile.vue");
+/* harmony import */ var _vue_view_admin_AdminGroup_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./vue/view/admin/AdminGroup.vue */ "./resources/js/vue/view/admin/AdminGroup.vue");
+/* harmony import */ var _vue_view_admin_Profile_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./vue/view/admin/Profile.vue */ "./resources/js/vue/view/admin/Profile.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -11344,9 +11647,13 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MOD
 
 
 
+
 var routes = [{
   path: '*',
-  component: _vue_view_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _vue_view_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"],
+  meta: {
+    title: 'error'
+  }
 }, {
   path: '/',
   component: _vue_view_Home__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -11356,11 +11663,17 @@ var routes = [{
   }
 }, {
   path: '/register',
-  component: _vue_view_Register__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _vue_view_Register__WEBPACK_IMPORTED_MODULE_3__["default"],
+  meta: {
+    title: '註冊'
+  }
 }, {
   path: '/login',
   component: _vue_view_Login__WEBPACK_IMPORTED_MODULE_4__["default"],
-  name: 'Login'
+  name: 'Login',
+  meta: {
+    title: '登入'
+  }
 }, {
   path: '/adminpage',
   name: 'AdminDashboard',
@@ -11371,7 +11684,7 @@ var routes = [{
   children: [{
     path: '/',
     name: 'Profile',
-    component: _vue_view_admin_Profile_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    component: _vue_view_admin_Profile_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
     meta: {
       title: '用戶資料'
     }
@@ -11388,6 +11701,13 @@ var routes = [{
     component: _vue_view_admin_CreateGroup_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     meta: {
       title: '我的開團'
+    }
+  }, {
+    path: '/adminpage/adminGroup',
+    name: 'AdminGroup',
+    component: _vue_view_admin_AdminGroup_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
+    meta: {
+      title: '開團管理'
     }
   }] // beforeEnter: (to, form, next) =>{
   //    axios.get('/api/athenticated').then(()=>{
@@ -16586,6 +16906,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, ".sidebar {\n  width: 250px;\n  height:
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  pointer-events: none;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  pointer-events: initial;\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newGroup {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newGroup .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newGroup .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newGroup .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newGroup .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newGroup .picbox {\n  height: 200px;\n}\n.newGroup .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/CreateCourse.vue?vue&type=style&index=0&lang=scss&scope=true&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/CreateCourse.vue?vue&type=style&index=0&lang=scss&scope=true& ***!
@@ -16603,7 +16947,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  pointer-events: none;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.2);\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newCourse {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newCourse .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newCourse .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newCourse .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newCourse .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newCourse .picbox {\n  height: 200px;\n}\n.newCourse .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  pointer-events: none;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  pointer-events: initial;\n  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.2);\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newCourse {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newCourse .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newCourse .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newCourse .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newCourse .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newCourse .picbox {\n  height: 200px;\n}\n.newCourse .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -16627,7 +16971,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  pointer-events: none;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newGroup {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newGroup .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newGroup .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newGroup .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newGroup .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newGroup .picbox {\n  height: 200px;\n}\n.newGroup .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".fade-enter-active, .fade-leave-active {\n  transition: opacity 0.5s;\n}\n.fade-enter, .fade-leave-to {\n  opacity: 0;\n}\na {\n  text-decoration: none;\n  color: #000;\n}\n.course {\n  padding-top: 80px;\n}\n.course-setting {\n  width: 70%;\n  height: 600px;\n  overflow: auto;\n  position: relative;\n  min-width: 900px;\n  margin-top: 100px;\n  font-weight: 900;\n  background: rgba(255, 255, 255, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.course-setting::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.course-setting::-webkit-scrollbar {\n  width: 8px;\n}\n.course-setting::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.course-setting .addbox {\n  position: -webkit-sticky;\n  position: sticky;\n  pointer-events: none;\n  width: 100%;\n  top: 30px;\n  left: 0;\n  text-align: right;\n  z-index: 991;\n}\n.course-setting .addBtn {\n  pointer-events: initial;\n  margin-right: 10px;\n  background: #769fdb;\n  cursor: pointer;\n  color: #fff;\n}\n.newGroup {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newGroup .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newGroup .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newGroup .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newGroup .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newGroup .picbox {\n  height: 200px;\n}\n.newGroup .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.newEdit {\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.5);\n  -webkit-backdrop-filter: blur(3px);\n          backdrop-filter: blur(3px);\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.newEdit .card {\n  width: 800px;\n  height: 600px;\n  overflow: auto;\n  background: #fff;\n  position: absolute;\n  top: 130px;\n  left: 50%;\n  transform: translateX(-50%);\n}\n.newEdit .card::-webkit-scrollbar-track {\n  border-radius: 8px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n}\n.newEdit .card::-webkit-scrollbar {\n  width: 8px;\n}\n.newEdit .card::-webkit-scrollbar-thumb {\n  border-radius: 8px;\n  background-color: #d4d4d4;\n}\n.newEdit .picbox {\n  height: 200px;\n}\n.newEdit .picbox img {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item {\n  width: 300px;\n  min-height: 400px;\n  background: white;\n  position: relative;\n  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);\n}\n.item .itemsetting {\n  position: absolute;\n  top: 15px;\n  right: 10px;\n  width: 25px;\n  text-align: center;\n  color: #fff;\n  font-size: 18px;\n  cursor: pointer;\n  transition: 0.3s all ease;\n}\n.item .itemsetting:hover {\n  filter: drop-shadow(0px 0px 5px #fff);\n  transition: 0.3s all ease;\n}\n.item .title {\n  background: #e0edff;\n}\n.item .pic {\n  width: 100%;\n  height: 270px;\n  position: relative;\n}\n.item .pic img {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n}\n.item .class {\n  position: absolute;\n  top: 245px;\n  right: 15px;\n}\n.item .usernum {\n  position: absolute;\n  bottom: 5px;\n  right: 20px;\n  color: #8c8e91;\n  font-size: 14px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34659,6 +35003,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_style_index_0_lang_scss_scope_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_style_index_0_lang_scss_scope_true___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_style_index_0_lang_scss_scope_true___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/CreateCourse.vue?vue&type=style&index=0&lang=scss&scope=true&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/CreateCourse.vue?vue&type=style&index=0&lang=scss&scope=true& ***!
@@ -39177,6 +39551,47 @@ component.options.__file = "resources/js/vue/view/admin/AdminDashboard.vue"
 
 /***/ }),
 
+/***/ "./resources/js/vue/view/admin/AdminGroup.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/vue/view/admin/AdminGroup.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _AdminGroup_vue_vue_type_template_id_b623e6ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminGroup.vue?vue&type=template&id=b623e6ba& */ "./resources/js/vue/view/admin/AdminGroup.vue?vue&type=template&id=b623e6ba&");
+/* harmony import */ var _AdminGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminGroup.vue?vue&type=script&lang=js& */ "./resources/js/vue/view/admin/AdminGroup.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AdminGroup_vue_vue_type_style_index_0_lang_scss_scope_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true& */ "./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _AdminGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminGroup_vue_vue_type_template_id_b623e6ba___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AdminGroup_vue_vue_type_template_id_b623e6ba___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/vue/view/admin/AdminGroup.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/vue/view/admin/CreateCourse.vue":
 /*!******************************************************!*\
   !*** ./resources/js/vue/view/admin/CreateCourse.vue ***!
@@ -39396,6 +39811,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/vue/view/admin/AdminGroup.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/vue/view/admin/AdminGroup.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminGroup.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/vue/view/admin/CreateCourse.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/vue/view/admin/CreateCourse.vue?vue&type=script&lang=js& ***!
@@ -39479,6 +39910,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_style_index_0_lang_scss_scope_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminDashboard.vue?vue&type=style&index=0&lang=scss&scope=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminDashboard.vue?vue&type=style&index=0&lang=scss&scope=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_0_rules_0_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_style_index_0_lang_scss_scope_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12[0].rules[0].use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=style&index=0&lang=scss&scope=true&");
 
 
 /***/ }),
@@ -39712,6 +40156,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_template_id_940cef90___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminDashboard_vue_vue_type_template_id_940cef90___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminDashboard.vue?vue&type=template&id=940cef90& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminDashboard.vue?vue&type=template&id=940cef90&");
+
+
+/***/ }),
+
+/***/ "./resources/js/vue/view/admin/AdminGroup.vue?vue&type=template&id=b623e6ba&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/vue/view/admin/AdminGroup.vue?vue&type=template&id=b623e6ba& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_template_id_b623e6ba___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_template_id_b623e6ba___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminGroup_vue_vue_type_template_id_b623e6ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AdminGroup.vue?vue&type=template&id=b623e6ba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=template&id=b623e6ba&");
 
 
 /***/ }),
@@ -41160,7 +41621,23 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _vm._m(1),
+      _c(
+        "div",
+        { staticClass: "adminpage py-3 px-5" },
+        [
+          _c("i", { staticClass: "fas fa-clipboard-list" }),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "text-decoration-none",
+              attrs: { to: "/adminpage/adminGroup" },
+            },
+            [_vm._v("\r\n    開團管理\r\n    ")]
+          ),
+        ],
+        1
+      ),
     ]),
     _vm._v(" "),
     _c(
@@ -41226,16 +41703,865 @@ var staticRenderFns = [
       _vm._v("\r\n    用戶管理\r\n    "),
     ])
   },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "adminpage py-3 px-5" }, [
-      _c("i", { staticClass: "fas fa-clipboard-list" }),
-      _vm._v("\r\n    開團管理\r\n    "),
-    ])
-  },
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=template&id=b623e6ba&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/vue/view/admin/AdminGroup.vue?vue&type=template&id=b623e6ba& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "text-2xl text-gray-800 course" },
+    [
+      _c("div", { staticClass: "course-setting card my-5 mx-auto p-1" }, [
+        _c("span", { staticClass: "fs-2 m-3 ms-5" }, [_vm._v("管理用戶開團")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "course-lists p-3 d-flex flex-wrap justify-content-center align-items-center",
+          },
+          _vm._l(_vm.allGroup, function (item, idx) {
+            return _c(
+              "div",
+              { key: item.id, staticClass: "item p-2 me-3 mb-3" },
+              [
+                _c("div", { staticClass: "pic" }, [
+                  _c("img", { attrs: { src: item.pic1 } }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "itemsetting",
+                    on: {
+                      click: function ($event) {
+                        return _vm.editItem(idx)
+                      },
+                    },
+                  },
+                  [_c("i", { staticClass: "fas fa-ellipsis-v" })]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "class" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1",
+                      attrs: { type: "button" },
+                    },
+                    [_vm._v(_vm._s(item.class1))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: item.class2,
+                          expression: "item.class2",
+                        },
+                      ],
+                      staticClass:
+                        "btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1",
+                      attrs: { type: "button" },
+                    },
+                    [_vm._v(_vm._s(item.class2))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: item.class3,
+                          expression: "item.class3",
+                        },
+                      ],
+                      staticClass:
+                        "btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1",
+                      attrs: { type: "button" },
+                    },
+                    [_vm._v(_vm._s(item.class3))]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "title w-100 fs-4 text-center my-2 mx-0" },
+                  [_vm._v(_vm._s(item.title))]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "signUptime mb-2" }, [
+                  _c("span", [_vm._v("登記時間:")]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("span", { staticStyle: { "font-weight": "300" } }, [
+                    _vm._v(_vm._s(_vm.timeChanger(item.signUp_start_time))),
+                    _c("br"),
+                    _vm._v("~" + _vm._s(_vm.timeChanger(item.signUp_end_time))),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "coursetime mb-2" }, [
+                  _c("span", [_vm._v("課程時間:")]),
+                  _c("br"),
+                  _c("span", { staticStyle: { "font-weight": "300" } }, [
+                    _vm._v(_vm._s(_vm.timeChanger(item.activity_start_time))),
+                    _c("br"),
+                    _vm._v(
+                      "~" + _vm._s(_vm.timeChanger(item.activity_send_time))
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "usernum" }, [
+                  _c("span", { staticClass: "me-1" }, [_vm._v("參與人數:")]),
+                  _vm._v(_vm._s(item.usernum)),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "price mb-1" }, [
+                  _c("span", { staticClass: "me-1" }, [_vm._v("費用:")]),
+                  _vm._v(_vm._s(item.price)),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "place" }, [
+                  _c("span", { staticClass: "me-1" }, [_vm._v("地點:")]),
+                  _vm._v(_vm._s(item.place)),
+                ]),
+              ]
+            )
+          }),
+          0
+        ),
+      ]),
+      _vm._v(" "),
+      _c("transition", { attrs: { name: "fade" } }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showEditCard,
+                expression: "showEditCard",
+              },
+            ],
+            staticClass: "newEdit",
+          },
+          [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body p-4" }, [
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("div", { staticClass: "row w-50 flex-grow-1 me-1" }, [
+                    _c("label", { staticClass: "col-3 col-form-label" }, [
+                      _vm._v("登記開始"),
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-7" },
+                      [
+                        _c("vue-datepicker-local", {
+                          attrs: { format: "YYYY-MM-DD HH:mm:ss" },
+                          model: {
+                            value: _vm.choseEdit.signUp_start_time,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.choseEdit, "signUp_start_time", $$v)
+                            },
+                            expression: "choseEdit.signUp_start_time",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-3 col-form-label",
+                        attrs: { for: "inputEmail3" },
+                      },
+                      [_vm._v("登記結束")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-7" },
+                      [
+                        _c("vue-datepicker-local", {
+                          attrs: { format: "YYYY-MM-DD HH:mm:ss" },
+                          model: {
+                            value: _vm.choseEdit.signUp_end_time,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.choseEdit, "signUp_end_time", $$v)
+                            },
+                            expression: "choseEdit.signUp_end_time",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row w-50" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-3 col-form-label",
+                        attrs: { for: "inputEmail3" },
+                      },
+                      [_vm._v("課程開始")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-7" },
+                      [
+                        _c("vue-datepicker-local", {
+                          attrs: { format: "YYYY-MM-DD HH:mm:ss" },
+                          model: {
+                            value: _vm.choseEdit.activity_start_time,
+                            callback: function ($$v) {
+                              _vm.$set(
+                                _vm.choseEdit,
+                                "activity_start_time",
+                                $$v
+                              )
+                            },
+                            expression: "choseEdit.activity_start_time",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-3 col-form-label",
+                        attrs: { for: "inputEmail3" },
+                      },
+                      [_vm._v("課程結束")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-7" },
+                      [
+                        _c("vue-datepicker-local", {
+                          attrs: { format: "YYYY-MM-DD HH:mm:ss" },
+                          model: {
+                            value: _vm.choseEdit.activity_send_time,
+                            callback: function ($$v) {
+                              _vm.$set(_vm.choseEdit, "activity_send_time", $$v)
+                            },
+                            expression: "choseEdit.activity_send_time",
+                          },
+                        }),
+                      ],
+                      1
+                    ),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-4 d-flex justify-content-center align-items-center",
+                    },
+                    [
+                      _c("span", { staticStyle: { width: "50px" } }, [
+                        _vm._v("名稱"),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.title,
+                            expression: "choseEdit.title",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.title },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "title",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-4 d-flex d-flex justify-content-center align-items-center",
+                    },
+                    [
+                      _c("span", { staticStyle: { width: "50px" } }, [
+                        _vm._v("地點"),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.place,
+                            expression: "choseEdit.place",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.place },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "place",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-4 d-flex d-flex justify-content-center align-items-center",
+                    },
+                    [
+                      _c("span", { staticStyle: { width: "50px" } }, [
+                        _vm._v("價錢"),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.price,
+                            expression: "choseEdit.price",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.price },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "price",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-4 d-flex d-flex justify-content-center align-items-center",
+                    },
+                    [
+                      _c("span", { staticStyle: { width: "50px" } }, [
+                        _vm._v("條件"),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.condition,
+                            expression: "choseEdit.condition",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.condition },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "condition",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-4 d-flex d-flex justify-content-center align-items-center",
+                    },
+                    [
+                      _c("span", { staticStyle: { width: "50px" } }, [
+                        _vm._v("提醒"),
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.notice,
+                            expression: "choseEdit.notice",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.notice },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "notice",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-4 d-flex d-flex justify-content-center align-items-center",
+                    },
+                    [
+                      _c("span", { staticStyle: { width: "50px" } }, [
+                        _vm._v("狀態"),
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.choseEdit.state,
+                              expression: "choseEdit.state",
+                            },
+                          ],
+                          staticClass: "form-select",
+                          attrs: { "aria-label": "Default select example" },
+                          on: {
+                            change: function ($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function (o) {
+                                  return o.selected
+                                })
+                                .map(function (o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.choseEdit,
+                                "state",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                          },
+                        },
+                        [
+                          _c("option", { attrs: { selected: "" } }, [
+                            _vm._v("召集中"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "審核" } }, [
+                            _vm._v("審核"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "審核通過" } }, [
+                            _vm._v("審核通過"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "審核不通過" } }, [
+                            _vm._v("審核不通過"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "確認開團" } }, [
+                            _vm._v("確認開團"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "開團失敗" } }, [
+                            _vm._v("開團失敗"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "報名截止" } }, [
+                            _vm._v("報名截止"),
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "已結束" } }, [
+                            _vm._v("已結束"),
+                          ]),
+                        ]
+                      ),
+                    ]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("div", { staticClass: "col-4" }, [
+                    _c("label", [_vm._v("標籤1")]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.class1,
+                            expression: "choseEdit.class1",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.class1 },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "class1",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("標籤2")]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.class2,
+                            expression: "choseEdit.class2",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.class2 },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "class2",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("標籤3")]),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.class3,
+                            expression: "choseEdit.class3",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        domProps: { value: _vm.choseEdit.class3 },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "class3",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-8" }, [
+                    _c("div", { staticClass: "form-floating" }, [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.choseEdit.content,
+                            expression: "choseEdit.content",
+                          },
+                        ],
+                        staticClass: "form-control",
+                        staticStyle: { height: "210px" },
+                        attrs: {
+                          placeholder: "Leave a comment here",
+                          id: "floatingTextarea2",
+                        },
+                        domProps: { value: _vm.choseEdit.content },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.choseEdit,
+                              "content",
+                              $event.target.value
+                            )
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c("label", { attrs: { for: "floatingTextarea2" } }, [
+                        _vm._v("課程主要內容"),
+                      ]),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3" }, [
+                  _c("label", { staticClass: "col-1 col-form-label" }, [
+                    _vm._v("照片1"),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3 p-0" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.choseEdit.pic1,
+                          expression: "choseEdit.pic1",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "email" },
+                      domProps: { value: _vm.choseEdit.pic1 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.choseEdit, "pic1", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "col-1 col-form-label" }, [
+                    _vm._v("照片2"),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3 p-0" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.choseEdit.pic2,
+                          expression: "choseEdit.pic2",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "email" },
+                      domProps: { value: _vm.choseEdit.pic2 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.choseEdit, "pic2", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "col-1 col-form-label" }, [
+                    _vm._v("照片3"),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-3 p-0" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.choseEdit.pic3,
+                          expression: "choseEdit.pic3",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "email" },
+                      domProps: { value: _vm.choseEdit.pic3 },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.choseEdit, "pic3", $event.target.value)
+                        },
+                      },
+                    }),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row mb-3 mx-auto" }, [
+                  _c("div", { staticClass: "picbox col-4 p-3" }, [
+                    _c("img", { attrs: { src: _vm.choseEdit.pic1 } }),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.choseEdit.pic2,
+                          expression: "choseEdit.pic2",
+                        },
+                      ],
+                      staticClass: "picbox col-4 p-3",
+                    },
+                    [_c("img", { attrs: { src: _vm.choseEdit.pic2 } })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.choseEdit.pic3,
+                          expression: "choseEdit.pic3",
+                        },
+                      ],
+                      staticClass: "picbox col-4 p-3",
+                    },
+                    [_c("img", { attrs: { src: _vm.choseEdit.pic3 } })]
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "d-flex justify-content-end" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-danger me-2",
+                      attrs: { type: "button" },
+                      on: { click: _vm.delteGroup },
+                    },
+                    [_vm._v("刪除活動")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-secondary me-2",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function ($event) {
+                          _vm.showEditCard = false
+                        },
+                      },
+                    },
+                    [_vm._v("取消編輯")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-primary",
+                      attrs: { type: "button" },
+                      on: { click: _vm.sendEditGroup },
+                    },
+                    [_vm._v("編輯送出")]
+                  ),
+                ]),
+              ]),
+            ]),
+          ]
+        ),
+      ]),
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

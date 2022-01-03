@@ -262,7 +262,6 @@ export default {
                 class1:'',
                 class2:'',
                 class3:'',
-
             },
             allCourse:[]
         }
@@ -286,6 +285,7 @@ export default {
           return day === 0 || day === 6;
         },
         sendNewCourse(){
+            this.newCourse.who = this.user.id
             axios.post('/api/admin/createCourese', this.newCourse)
             .then((res) =>{
                 new this.$swal({
@@ -354,7 +354,7 @@ export default {
             this.choseEdit = {...this.allCourse[idx]}
         },
         delteCourse(){
-            axios.delete('/api/admin/destroyCourse/'+this.choseEdit.id)
+            axios.post('/api/admin/destroyCourse/'+this.choseEdit.id,{id:this.user.id})
             .then((res) =>{
                 new this.$swal({
                 icon: 'success',
@@ -432,6 +432,7 @@ a{
         z-index:991;
     }
     .addBtn{
+        pointer-events: initial;
         box-shadow:0px 0px 15px 2px rgba(0, 0, 0,0.2);
         margin-right:10px;
         background:#769fdb;

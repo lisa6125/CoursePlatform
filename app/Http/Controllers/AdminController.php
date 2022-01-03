@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\Activity;
@@ -17,6 +18,10 @@ class AdminController extends Controller
     }
     public function createCourese(Request $request)
     {
+        $who = User::find($request-> who);
+        $courseyouopen = $who->courseyouopen;
+        $who->courseyouopen = $courseyouopen+1;
+        $who->save();
         Course::create([
             'title' => $request->title,
             'content' => $request->content,
@@ -39,6 +44,10 @@ class AdminController extends Controller
     }
     public function createGroup(Request $request)
     {
+        $who = User::find($request-> who);
+        $activityyouopen = $who->activityyouopen;
+        $who->activityyouopen = $activityyouopen+1;
+        $who->save();
         Activity::create([
             'title' => $request->title,
             'who_create' => $request->who_create,
@@ -70,6 +79,13 @@ class AdminController extends Controller
     }
     public function getGroup($id){
         return Activity::where('who_create',$id)->get();
+    }
+    public function getOtherUserGroup($id){
+        $collection = Activity::all();
+        $groupitem = $collection->filter(function($item) use($id){
+            return $item->who_create != $id;
+        });
+        return $groupitem;
     }
     public function updateCourse(Request $request){
         $course = Course::find($request->id);
@@ -122,16 +138,24 @@ class AdminController extends Controller
         $activity->save();
         return "課程更新成功";
     }
-    public function destroyCourse($id){
+    public function destroyCourse(Request $request,$id){
         $course =  Course::find($id);
+        $user = User::find($request->id);
+        $courseyouopen = $user->courseyouopen;
+        $user->courseyouopen = $courseyouopen -1;
+        $user->save();
         if($course){
             $course->delete();
             return "課程刪除成功";
         }
             return "課程刪除失敗";
     }
-    public function destroyGroup($id){
-        $activity =  Activity::find($id);
+    public function destroyGroup(Request $request,$id){
+        $activity = Activity::find($id);
+        $user = User::find($request->id);
+        $activityyouopen = $user->activityyouopen;
+        $user->activityyouopen = $activityyouopen -1;
+        $user->save();
         if($activity){
             $activity->delete();
             return "活動刪除成功";

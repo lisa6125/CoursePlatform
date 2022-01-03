@@ -32,7 +32,9 @@
     </div>
     <div class="adminpage py-3 px-5">
     <i class="fas fa-clipboard-list"></i>
+    <router-link class="text-decoration-none" to='/adminpage/adminGroup' >
     開團管理
+    </router-link>
     </div>
   </div>
   <div class="content flex-grow-1" :class="{close:sideBarClose}">
