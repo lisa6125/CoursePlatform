@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\Activity;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -98,5 +101,13 @@ class UserController extends Controller
             }
         }
         return "找無此用戶";
+    }
+    public function getcourse()
+    {
+        return Course::offset(0)->select('title', 'pic1')->limit(6)->get();
+    }
+    public function getgroup()
+    {
+        return Activity::offset(0)->select( 'pic1')->limit(6)->get();
     }
 }

@@ -398,7 +398,7 @@ a{
     height:600px;
     overflow:auto;
     position:relative;
-    min-width:900px;
+    min-width:800px;
     margin-top:100px;
     font-weight:900;
     background:rgba(255, 255, 255,0.5);

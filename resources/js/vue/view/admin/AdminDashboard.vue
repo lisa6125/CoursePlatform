@@ -16,7 +16,9 @@
     </div>
     <div class="adminpage py-3 px-5">
     <i class="fas fa-users-cog"></i>
+    <router-link class="text-decoration-none" to='/adminpage/adminuser' >
     用戶管理
+    </router-link>
     </div>
     <div class="adminpage py-3 px-5">
     <i class="fas fa-chalkboard-teacher"></i>
@@ -83,7 +85,20 @@ export default {
           timer: 1500
           })
       })
+    },
+    checkUser(){
+      axios.post('/api/admin/checkadmin/'+ this.user.id)
+      .then((res)=>{
+        if(!res.data){
+          this.$router.push('/');
+        }
+      })
+      .catch(()=>{
+      })
     }
+  },
+  created(){
+    // this.checkUser();
   }
 }
 </script>
@@ -112,6 +127,7 @@ export default {
   .user_pic{
     width:120px;
     height:120px;
+    overflow: hidden;
     img{
       width:100%;
       height:100%;
@@ -130,6 +146,7 @@ export default {
   }
 }
 .content{
+  width: calc(100% - 250px);
   background:url('/images/usercard.jpg');
   background-size:1920px 1000px;
   background-repeat:no-repeat;

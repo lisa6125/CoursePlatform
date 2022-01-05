@@ -9,7 +9,7 @@ use App\Models\Course;
 use App\Models\Activity;
 class AdminController extends Controller
 {
-    public function cheackadmin($id){
+    public function checkadmin($id){
         $user = User::find($id);
         if($user->admin !== 1){
             return false;
@@ -87,6 +87,9 @@ class AdminController extends Controller
         });
         return $groupitem;
     }
+    public function getUser(){
+        return User::orderBy('created_at')->get();
+    }
     public function updateCourse(Request $request){
         $course = Course::find($request->id);
         $content = $request->validate([
@@ -161,5 +164,13 @@ class AdminController extends Controller
             return "活動刪除成功";
         }
             return "活動刪除失敗";
+    }
+    public function destroyUser($id){
+        $user = User::find($id);
+        if($user){
+            $user->delete();
+            return "用戶刪除成功";
+        }
+            return "用戶刪除失敗";
     }
 }

@@ -27,19 +27,24 @@ Route::prefix('user')->group(function(){
     Route::post('/register', [UserController::class,'register']);
     Route::post('/logout', [UserController::class,'logout']);
     Route::post('/update', [UserController::class,'update']);
-
+    Route::get('/getcourse', [UserController::class,'getcourse']);
+    Route::get('/getgroup', [UserController::class,'getgroup']);
 });
 
 Route::prefix('admin')->group(function(){
-    Route::post('/cheackadmin/{id}', [AdminController::class,'cheackadmin']);
+    Route::post('/checkadmin/{id}', [AdminController::class,'checkadmin']);
     Route::post('/createCourese', [AdminController::class,'createCourese']);
     Route::post('/createGroup', [AdminController::class,'createGroup']);
+    
     Route::get('/getCourese', [AdminController::class,'getCourese']);
     Route::get('/getGroup/{id}', [AdminController::class,'getGroup']);
     Route::get('/getOtherUserGroup/{id}', [AdminController::class,'getOtherUserGroup']);
+    Route::get('/getUser', [AdminController::class,'getUser']);
+
     Route::post('/updateCourse', [AdminController::class,'updateCourse']);
     Route::post('/updateGroup', [AdminController::class,'updateGroup']);
     Route::post('/destroyCourse/{id}', [AdminController::class,'destroyCourse']);
     Route::post('/destroyGroup/{id}', [AdminController::class,'destroyGroup']);
+    Route::delete('/destroyUser/{id}', [AdminController::class,'destroyUser']);
 
 });

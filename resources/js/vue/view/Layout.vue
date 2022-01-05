@@ -1,9 +1,7 @@
 <template>
-<div>
-  <div class="w-100">
+  <div>
     <router-view></router-view>
   </div>
-</div>
 </template>
 <script>
 import {mapState, mapMutations} from "vuex";
@@ -55,3 +53,96 @@ created() {
     },
 }
 </script>
+<style lang="scss">
+@import "../../../sass/_variables.scss";
+body,html{
+  margin: 0;
+  padding: 0;
+    &::-webkit-scrollbar-track
+    {
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 10px;
+        background: rgb(227, 239, 250);
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: #d4d4d4;
+    }
+
+}
+.layout{
+  width: 100%;
+  min-height: 1000px;
+  background: url('/images/bg.png');
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size: cover;
+    &::-webkit-scrollbar-track
+    {
+        border-radius: 8px;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    &::-webkit-scrollbar
+    {
+        width: 8px;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+        border-radius: 8px;
+        background-color: #d4d4d4;
+    }
+  .main{
+    width: 70%;
+    min-height: 500px;
+    background: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 0 20px 5px rgba(183, 191, 201, 0.801);
+    .nav{
+      margin: 20px 0 50px 0;
+      font-size: 24px;
+      font-weight: 400;
+      color: #bbc8ce;
+      position: relative;
+      a{
+        color: #bbc8ce;
+        font-family: 'EB Garamond', serif;
+        line-height: 2;
+        cursor: pointer;
+      }
+      span{
+        font-size: 18px;
+        font-weight: 900;
+      }
+      &::after{
+        content:"";
+        position: absolute;
+        bottom:-20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 20px);
+        height: 20px;
+        background: url('/images/line.png');
+      }
+    }
+    @include min-pc{
+      width: 90%;
+      .nav{
+        .center{
+          width: 80px;
+          height: 50px;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+  }
+}
+</style>

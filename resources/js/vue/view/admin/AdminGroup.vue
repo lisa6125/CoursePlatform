@@ -15,7 +15,7 @@
                         <button v-show="item.class2" type="button" class="btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1">{{item.class2}}</button>
                         <button v-show="item.class3" type="button" class="btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1">{{item.class3}}</button>
                     </div>
-                    <div class="title w-100 fs-4 text-center my-2 mx-0">{{item.title}}</div>
+                    <div class="title w-100 fs-4 text-center my-2 mx-0">{{item.title}}<p class="state">{{item.state}}</p></div>
                     <div class="signUptime mb-2"><span>登記時間:</span><br> <span style="font-weight:300;">{{timeChanger(item.signUp_start_time)}}<br>~{{timeChanger(item.signUp_end_time)}}</span></div>
                     <div class="coursetime mb-2"><span>課程時間:</span><br><span style="font-weight:300;">{{timeChanger(item.activity_start_time)}}<br>~{{timeChanger(item.activity_send_time)}}</span></div>
                     <div class="usernum"><span class="me-1">參與人數:</span>{{item.usernum}}</div>
@@ -283,7 +283,7 @@ a{
     height:600px;
     overflow:auto;
     position:relative;
-    min-width:900px;
+    min-width:800px;
     margin-top:100px;
     font-weight:900;
     background:rgba(255, 255, 255,0.5);
@@ -437,6 +437,11 @@ a{
     }
     .title{
         background:#e0edff;
+        .state{
+            font-size: 16px;
+            color: #8c8e91;
+            font-weight: 500;
+        }
     }
     .pic{
         width:100%;

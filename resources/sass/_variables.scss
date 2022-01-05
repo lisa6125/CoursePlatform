@@ -5,3 +5,24 @@ $body-bg: #f8fafc;
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+$main-font:'EB Garamond', serif;
+
+@mixin min-pc {
+  @media screen and (max-width: 1500px) {
+    @content;
+  }
+}
+@mixin pad {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+@mixin moble {
+  @media screen and (max-width: 576px) {
+    @content;
+  }
+}
+:root {
+    --swiper-theme-color: #ffffff !important;
+}

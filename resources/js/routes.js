@@ -14,6 +14,7 @@ import AdminDashboard from './vue/view/admin/AdminDashboard.vue';
 import CreateCourse from './vue/view/admin/CreateCourse.vue';
 import CreateGroup from './vue/view/admin/CreateGroup.vue';
 import AdminGroup from './vue/view/admin/AdminGroup.vue';
+import AdminUser from './vue/view/admin/AdminUser.vue';
 import Profile from './vue/view/admin/Profile.vue';
 
 
@@ -86,6 +87,14 @@ const routes = [
                 component:AdminGroup,
                 meta: {
                 title: '開團管理',
+                }
+            },
+            {
+                path: '/adminpage/adminuser',
+                name: 'AdminUser',
+                component:AdminUser,
+                meta: {
+                title: '用戶管理',
                 }
             },
         ],
