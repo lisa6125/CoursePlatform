@@ -26,5 +26,10 @@
     "/images/wn1.jpg": "/images/wn1.jpg",
     "/images/wn2.jpg": "/images/wn2.jpg",
     "/images/wn3.jpg": "/images/wn3.jpg",
-    "/images/dots.png": "/images/dots.png"
+    "/images/dots.png": "/images/dots.png",
+    "/images/arrowleft.png": "/images/arrowleft.png",
+    "/images/arrowright.png": "/images/arrowright.png",
+    "/images/coursetext.png": "/images/coursetext.png",
+    "/images/latestcoursescard.png": "/images/latestcoursescard.png",
+    "/images/coursetitle.png": "/images/coursetitle.png"
 }

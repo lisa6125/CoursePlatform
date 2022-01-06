@@ -102,6 +102,10 @@ body,html{
     background: rgb(255, 255, 255);
     border-radius: 8px;
     box-shadow: 0 0 20px 5px rgba(183, 191, 201, 0.801);
+      margin: 30px auto;
+    @include moble{
+      margin: 10px auto;
+    }
     .nav{
       margin: 20px 0 50px 0;
       font-size: 24px;
@@ -112,6 +116,7 @@ body,html{
         color: #bbc8ce;
         font-family: 'EB Garamond', serif;
         line-height: 2;
+        margin: 0 15px;
         cursor: pointer;
       }
       span{
@@ -129,17 +134,23 @@ body,html{
         background: url('/images/line.png');
       }
     }
-    @include min-pc{
-      width: 90%;
+    @include pad{
+      width: 95%;
       .nav{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         .center{
           width: 80px;
-          height: 50px;
+          height: 60px;
           img{
             width: 100%;
             height: 100%;
             object-fit: contain;
           }
+        }
+        a{
+          margin: 0 5px;
         }
       }
     }

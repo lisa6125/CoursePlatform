@@ -1,22 +1,22 @@
 <template>
   <div class="layout d-flex justify-content-center align-item-center">
-    <div class="main my-5">
+    <div class="main">
       <div class="nav d-flex justify-content-center align-item-center">
-        <div class="left">
-          <router-link class="mx-3" to='/' exact>Home</router-link>
-          <router-link class="mx-3" to='/' >Course</router-link>
-          <router-link class="mx-3" to='/' >Activity</router-link>
+        <div class="left d-flex justify-content-around align-item-center">
+          <router-link to='/' exact>Home</router-link>
+          <router-link to='/course' >Course</router-link>
+          <router-link to='/' >Activity</router-link>
         </div>
         <div class="center mx-3">
           <img src="/images/logo.png" alt="">
         </div>
-        <div class="right">
-          <router-link class="mx-3" to='/adminpage' v-if="Useradmin">Admin</router-link>
-          <router-link class="mx-3" to='/adminpage' v-else>User</router-link>
-          <router-link class="mx-3" to='/login' exact v-if="!user.name">Login</router-link>
-          <router-link class="mx-3" to='/register' v-if="!user.name">Register</router-link>
-          <a class="mx-3" v-if="user.name" @click="userLogout">Logout</a>
-          <span class="mx-3" v-if="user.name">歡迎!{{user.name}}</span>
+        <div class="right d-flex justify-content-around align-item-center">
+          <router-link to='/adminpage' v-if="Useradmin">Admin</router-link>
+          <router-link to='/adminpage' v-else>User</router-link>
+          <router-link to='/login' exact v-if="!user.name">Login</router-link>
+          <router-link to='/register' v-if="!user.name">Register</router-link>
+          <a v-if="user.name" @click="userLogout">Logout</a>
+          <span v-if="user.name">歡迎!{{user.name}}</span>
         </div>
       </div>
       <div>
@@ -176,7 +176,7 @@ export default {
             768: {
               slidesPerView: 3,
               slidesPerGroup: 3,
-              spaceBetween: 50
+              spaceBetween: 20
             },
           },
         },
@@ -197,7 +197,7 @@ export default {
               slidesPerGroup: 2,
               spaceBetween: 10
             },
-            768: {
+            978: {
               slidesPerView: 3,
               slidesPerGroup: 3,
               spaceBetween: 50
@@ -489,7 +489,7 @@ export default {
     .video{
       width: 100%;
       iframe{
-        height: 160px;
+        height: 210px;
         top:250px;
         left:50%;
         transform: translateX(-50%);
@@ -532,10 +532,10 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
-    height: 400px;
+    height: 350px;
     z-index: 1;
     .swiper-wrapper {
-      height: 400px;
+      height: 350px;
     }
     .swiper-slide {
       img{

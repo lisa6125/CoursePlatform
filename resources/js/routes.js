@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import Home from './vue/view/Home';
+import Course from './vue/view/Course';
+
 // import About from './components/About';
 // import trypage from './components/try';
 // import campaign from './components/campaign';
@@ -32,6 +34,14 @@ const routes = [
         name: "Home",
         meta: {
         title: '首頁',
+        },
+    },
+    {
+        path: '/course',
+        component: Course,
+        name: "Course",
+        meta: {
+        title: '課程列表',
         },
     },
     {
