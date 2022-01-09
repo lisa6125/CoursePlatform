@@ -91,61 +91,64 @@ export default {
   },
   data() {
     return {
-        swiperOptionbanner: {
-          slidesPerView: 1,
-          spaceBetween: 0,
-          slidesPerGroup: 1,
-          effect: 'fade',
-          loop: true,
-          // loopFillGroupWithBlank: true,
-          autoplay: {
-            disableOnInteraction: false,
-            delay:3000
-          },
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
-        },
             form:{
+                name: '',
                 account: '',
-                password: ''
+                pic: '',
+                phone: '',
+                email: '',
+                admin:false,
+                password:'',
+                password_confirmation:'',
+                courseyoujoin:0,
+                courseyouopen:0,
+                activityyoujoin:0,
+                activityyouopen:0,
             },
-            errors: []
+            errors:[]
         
       }
   },
-  computed:{
-    ...mapState(["user"]),
-    // 過濾活動
-  },
-
   methods:{
-        ...mapMutations(["login"]),
-        loginUser(){
-            axios.post('/api/user/login', this.form).then((res) =>{
-                this.login(res.data)
+        saveForm(){
+            if(this.form.name == ''|| this.form.account == '' || this.form.phone == '' ||this.form.email == '' ||this.form.password == '' ||this.form.password_confirmation == ''){
+                new this.$swal({
+                icon: 'warning',
+                title: '資料請填寫確實',
+                showConfirmButton: false,
+                timer: 1500
+                })
+                return ;
+            }
+            axios.post('/api/user/register', this.form).then(() =>{
                 new this.$swal({
                 icon: 'success',
-                title: '登入成功',
-                showCancelButton: false,
-                timer: 1500
+                title: '註冊成功',
+                showCancelButton: true,
+                confirmButtonText: '來去登入!',
                 }).then(()=>{
-                this.$router.push({ name: "Home"});
+                this.$router.push({ name: "Login"});
                 })
             }).catch((error) =>{
+                let content = ''
+                if(error.response.data.errors["name"]){
+                    content+=`${error.response.data.errors["name"]}\n`
+                }
+                if(error.response.data.errors["account"]){
+                    content+=`${error.response.data.errors["account"]}\n`
+                }
+                if(error.response.data.errors["email"]){
+                    content+=`${error.response.data.errors["email"]}\n`
+                }if(error.response.data.errors["password"]){
+                    content+=`${error.response.data.errors["password"]}\n`
+                }
                 new this.$swal({
-                icon: 'error',
-                title: '登入失敗',
-                showCancelButton: false,
-                text:error.response.data.errors["account"],
-                timer: 1500
+                icon: 'warning',
+                title: '註冊失敗',
+                text:content,
+                showCancelButton: true,
                 })
-        this.errors = error.response.data.errors;
+                this.errors = error.response.data.errors;
             })
         }
   },
