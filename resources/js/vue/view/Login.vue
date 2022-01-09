@@ -34,7 +34,7 @@
                         <label class="title" for="password">Password</label>
                         <input class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" placeholder="Password" type="password" v-model="form.password" name="password">
                     </div>
-                    <div class="mb-3 w-75 d-flex justify-content-center align-items-center mt-4">
+                    <div class="mt-5 w-75 d-flex justify-content-center align-items-center">
                         <button @click.prevent="loginUser" type="submit" class="btn text-white bg-indigo-500 border-0 py-2 px-8 btn-secondary">Login</button>
                     </div>
                 </div> 
@@ -147,10 +147,15 @@ export default {
     height: 500px;
     display: flex;
     .card{
+      width: 600px;
+      height: 600px;
       background:url('/images/whiteCard.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
+      .title{
+          width:200px;
+      }
       .btn{
         width: 120px;
         background: #8b989f;

@@ -165,6 +165,8 @@ export default {
     height: 800px;
     display: flex;
     .card{
+      width: 600px;
+      height: 700px;
       background:url('/images/whiteCard2.png');
       background-size: contain;
       background-repeat: no-repeat;
