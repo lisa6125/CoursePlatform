@@ -83,7 +83,7 @@
               </div>
               <div class="courseList_item_btns">
                 <div class="btn disabled" v-if="course.alreadyJoin" >已參加</div>
-                <div class="btn" v-else @click="takeParticipateCourse(course.id)">參加</div>
+                <div class="btn" v-else @click="takeParticipateCourse(course.id,idx)">參加</div>
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal(idx)">
                   詳情
                 </button>
@@ -159,7 +159,7 @@
                       {{nowOpen.price}}
                     </div>
                   </div>
-                  <div class="joinbtn" @click="takeParticipateCourse(course.id)">參加</div>
+                  <div class="joinbtn" @click="takeParticipateCourse(course.id,idx)">參加</div>
                 </div>
               </div>
             </div>
@@ -281,6 +281,12 @@ export default {
       axios.get('/api/admin/getCourese')
       .then((res)=>{
         this.courses = [...res.data];
+        this.courses = this.courses.filter((item)=>{
+          let time = Math.floor(new Date());
+          if(Date.parse(item.course_start_time).valueOf()>time){
+            return item
+          }
+        })
       }).catch((err)=>{
         console.log(err)
       })
@@ -290,7 +296,27 @@ export default {
       this.nowOpenPic = this.nowOpen.pic1;
     },
     // 參加活動
-    takeParticipateCourse(id){
+    takeParticipateCourse(id,idx){
+      let time = Math.floor(new Date());
+      console.log(this.courses[idx])
+      if(Date.parse(this.courses[idx].signUp_start_time).valueOf()>time){
+        new this.$swal({
+          icon: 'warning',
+          title: '報名時間未開始',
+          showCancelButton: false,
+          timer: 1500
+        })
+        return
+      }
+      if(Date.parse(this.courses[idx].signUp_end_time).valueOf()<time){
+        new this.$swal({
+          icon: 'warning',
+          title: '報名時間已結束',
+          showCancelButton: false,
+          timer: 1500
+        })
+        return
+      }
       if(!this.user.id){
         new this.$swal({
           icon: 'info',
@@ -307,7 +333,7 @@ export default {
           title: res.data,
           showCancelButton: false,
           timer: 1500
-          })
+        })
           this.getCourse();
           this.getUserParticipate();
       }).catch((err)=>{
@@ -319,9 +345,12 @@ export default {
       if(!this.user.id){
         return
       }
-        axios.post('/api/user/getUserParticipate',{userId:this.user.id})
-        .then((res)=>{
+      axios.post('/api/user/getUserParticipate',{userId:this.user.id})
+      .then((res)=>{
             this.myParticipates = [...res.data];
+            // if(Date.parse(this.myParticipates.course_start_time).valueOf() > Date.parse(this.myParticipates.course_send_time).valueOf()){
+            //   console.log('123')
+            // }
         }).catch((err)=>{
             console.log(err)
         })

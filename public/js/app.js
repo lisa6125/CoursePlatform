@@ -10447,6 +10447,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios.get('/api/admin/getCourese').then(function (res) {
         _this4.courses = _toConsumableArray(res.data);
+        _this4.courses = _this4.courses.filter(function (item) {
+          var time = Math.floor(new Date());
+
+          if (Date.parse(item.course_start_time).valueOf() > time) {
+            return item;
+          }
+        });
       })["catch"](function (err) {
         console.log(err);
       });
@@ -10456,8 +10463,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.nowOpenPic = this.nowOpen.pic1;
     },
     // 參加活動
-    takeParticipateCourse: function takeParticipateCourse(id) {
+    takeParticipateCourse: function takeParticipateCourse(id, idx) {
       var _this5 = this;
+
+      var time = Math.floor(new Date());
+      console.log(this.courses[idx]);
+
+      if (Date.parse(this.courses[idx].signUp_start_time).valueOf() > time) {
+        new this.$swal({
+          icon: 'warning',
+          title: '報名時間未開始',
+          showCancelButton: false,
+          timer: 1500
+        });
+        return;
+      }
+
+      if (Date.parse(this.courses[idx].signUp_end_time).valueOf() < time) {
+        new this.$swal({
+          icon: 'warning',
+          title: '報名時間已結束',
+          showCancelButton: false,
+          timer: 1500
+        });
+        return;
+      }
 
       if (!this.user.id) {
         new this.$swal({
@@ -10497,7 +10527,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post('/api/user/getUserParticipate', {
         userId: this.user.id
       }).then(function (res) {
-        _this6.myParticipates = _toConsumableArray(res.data);
+        _this6.myParticipates = _toConsumableArray(res.data); // if(Date.parse(this.myParticipates.course_start_time).valueOf() > Date.parse(this.myParticipates.course_send_time).valueOf()){
+        //   console.log('123')
+        // }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -55715,7 +55747,7 @@ var render = function () {
                             staticClass: "btn",
                             on: {
                               click: function ($event) {
-                                return _vm.takeParticipateCourse(course.id)
+                                return _vm.takeParticipateCourse(course.id, idx)
                               },
                             },
                           },
@@ -55950,7 +55982,10 @@ var render = function () {
                           staticClass: "joinbtn",
                           on: {
                             click: function ($event) {
-                              return _vm.takeParticipateCourse(_vm.course.id)
+                              return _vm.takeParticipateCourse(
+                                _vm.course.id,
+                                _vm.idx
+                              )
                             },
                           },
                         },
