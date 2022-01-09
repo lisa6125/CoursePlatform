@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -122,6 +124,7 @@ body,html{
       span{
         font-size: 18px;
         font-weight: 900;
+        line-height: 3;
       }
       &::after{
         content:"";
@@ -155,5 +158,12 @@ body,html{
       }
     }
   }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: all .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  position: absolute;
+  opacity: 0;
 }
 </style>

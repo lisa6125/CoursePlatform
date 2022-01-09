@@ -75,14 +75,36 @@ class AdminController extends Controller
         return "新增開團成功";
     }
     public function getCourese(){
-        return Course::orderBy('created_at')->get();
+        $coueses = Course::orderBy('created_at')->get();
+        $newcoueses = $coueses->each(function($item){
+            $courseNum =$item->UserJoinCourse;
+        });
+        return $newcoueses;
+        // return Course::orderBy('created_at')->get();
+    }
+    public function getAllGroup(){
+        $activites = Activity::all();
+        $newactivites = $activites->each(function ($item) {
+            $who = User::find($item->who_create);
+            $item->user_name = $who -> name;
+            $item->user_pic = $who -> pic;
+            $item->user_phone = $who -> phone;
+            $item->user_email = $who -> email;
+            $courseNum =$item->UserJoinActivity;
+        });
+        return $newactivites;
     }
     public function getGroup($id){
-        return Activity::where('who_create',$id)->get();
+        $collection =Activity::where('who_create',$id)->get();
+        $groupitem = $collection->each(function($item){
+            $item->UserJoinActivity;
+        });
+        return $groupitem;
     }
     public function getOtherUserGroup($id){
         $collection = Activity::all();
         $groupitem = $collection->filter(function($item) use($id){
+            $item->UserJoinActivity;
             return $item->who_create != $id;
         });
         return $groupitem;

@@ -4,6 +4,8 @@ Vue.use(VueRouter);
 
 import Home from './vue/view/Home';
 import Course from './vue/view/Course';
+import Activity from './vue/view/Activity';
+
 
 // import About from './components/About';
 // import trypage from './components/try';
@@ -18,6 +20,13 @@ import CreateGroup from './vue/view/admin/CreateGroup.vue';
 import AdminGroup from './vue/view/admin/AdminGroup.vue';
 import AdminUser from './vue/view/admin/AdminUser.vue';
 import Profile from './vue/view/admin/Profile.vue';
+
+import UserDashboard from './vue/view/user/UserDashboard.vue';
+import UserCourse from './vue/view/user/UserCourse.vue';
+import UserGroup from './vue/view/user/UserGroup.vue';
+import UserCreateGroup from './vue/view/user/UserCreateGroup.vue';
+import UserProfile from './vue/view/user/UserProfile.vue';
+
 
 
 const routes = [
@@ -42,6 +51,14 @@ const routes = [
         name: "Course",
         meta: {
         title: '課程列表',
+        },
+    },
+    {
+        path: '/activity',
+        component: Activity,
+        name: "Activity",
+        meta: {
+        title: '活動列表',
         },
     },
     {
@@ -105,6 +122,55 @@ const routes = [
                 component:AdminUser,
                 meta: {
                 title: '用戶管理',
+                }
+            },
+        ],
+        // beforeEnter: (to, form, next) =>{
+        //    axios.get('/api/athenticated').then(()=>{
+        //        next()
+        //    }).catch(()=>{
+        //        return next({ name: 'Login'})
+        //    })
+        // }
+    },
+    {
+        path: '/userpage',
+        name: 'UserDashboard',
+        component: UserDashboard,
+        meta: {
+        title: '會員管理',
+        },
+        children: [
+            {
+                path: '/',
+                name: 'UserProfile',
+                component:UserProfile,
+                meta: {
+                title: '用戶資料',
+                }
+            },
+            {
+                path: '/userpage/userCourse',
+                name: 'UserCourse',
+                component:UserCourse,
+                meta: {
+                title: '我的課程',
+                }
+            },
+            {
+                path: '/userpage/userGroup',
+                name: 'UserGroup',
+                component:UserGroup,
+                meta: {
+                title: '我的活動',
+                }
+            },
+            {
+                path: '/userpage/userCreateGroup',
+                name: 'UserCreateGroup',
+                component:UserCreateGroup,
+                meta: {
+                title: '我的開團',
                 }
             },
         ],

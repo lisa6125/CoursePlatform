@@ -33,4 +33,7 @@ class Activity extends Model
         'class2',
         'class3'
     ];
+    public function UserJoinActivity(){
+        return $this->belongsToMany('App\Models\User');
+    }
 }

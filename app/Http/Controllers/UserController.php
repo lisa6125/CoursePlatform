@@ -110,4 +110,81 @@ class UserController extends Controller
     {
         return Activity::offset(0)->select( 'pic1')->limit(6)->get();
     }
+    // Course
+    public function takeParticipateCourse(Request $request,$id){
+        // 課程人數
+        $existingItem = Course::find($id);
+        $usernum = $existingItem->usernum;
+        $existingItem->usernum = $usernum +1 ;
+        $existingItem->save();
+
+        $user = User::find($request->userId);
+        $courseyoujoin = $user -> courseyoujoin;
+        $user -> courseyoujoin = $courseyoujoin +1 ;
+        $user ->save();
+
+        $existingItem->UserJoinCourse()->save($user);
+        return "參加成功!";
+    }
+    public function getUserParticipate(Request $request){
+        $user = User::find($request->userId);
+        $getUserParticipate = $user->ParticipateCourse;
+        return $getUserParticipate;
+    }
+    public function UserCancelParticipate(Request $request,$id){
+        // 課程人數
+        $existingItem = Course::find($id);
+        $usernum = $existingItem->usernum;
+        $existingItem->usernum = $usernum - 1 ;
+        $existingItem->save();
+
+        $user = User::find($request->userId);
+        $courseyoujoin = $user -> courseyoujoin;
+        $user -> courseyoujoin = $courseyoujoin - 1 ;
+        $user ->save();
+        $user->ParticipateCourse()->detach($id);
+        return "已取消參加此活動";
+    }
+    // activity
+    public function takeParticipateActivity(Request $request,$id){
+        // 課程人數
+        $existingItem = Activity::find($id);
+        $usernum = $existingItem->usernum;
+        $existingItem->usernum = $usernum +1 ;
+        $existingItem->save();
+
+        $user = User::find($request->userId);
+        $activityyoujoin = $user -> activityyoujoin;
+        $user -> activityyoujoin = $activityyoujoin +1 ;
+        $user ->save();
+
+        $existingItem->UserJoinActivity()->save($user);
+        return "參加成功!";
+    }
+    public function getUserParticipateActivity(Request $request){
+        $user = User::find($request->userId);
+        $getUserParticipate = $user->ParticipateActivity;
+        $newUserParticipate = $getUserParticipate->each(function ($item) {
+            $who = User::find($item->who_create);
+            $item->user_name = $who -> name;
+            $item->user_pic = $who -> pic;
+            $item->user_phone = $who -> phone;
+            $item->user_email = $who -> email;
+        });
+        return $newUserParticipate;
+    }
+    public function UserCancelParticipateActivity(Request $request,$id){
+        // 課程人數
+        $existingItem = Activity::find($id);
+        $usernum = $existingItem->usernum;
+        $existingItem->usernum = $usernum - 1 ;
+        $existingItem->save();
+
+        $user = User::find($request->userId);
+        $activityyoujoin = $user -> activityyoujoin;
+        $user -> activityyoujoin = $activityyoujoin - 1 ;
+        $user ->save();
+        $user->ParticipateActivity()->detach($id);
+        return "已取消參加此活動";
+    }
 }

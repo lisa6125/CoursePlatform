@@ -4,15 +4,15 @@
       <div class="nav d-flex justify-content-center align-item-center">
         <div class="left d-flex justify-content-around align-item-center">
           <router-link to='/' exact>Home</router-link>
-          <router-link to='/course' >Course</router-link>
-          <router-link to='/' >Activity</router-link>
+          <router-link to='/course'>Course</router-link>
+          <router-link to='/activity' >Activity</router-link>
         </div>
         <div class="center mx-3">
           <img src="/images/logo.png" alt="">
         </div>
         <div class="right d-flex justify-content-around align-item-center">
           <router-link to='/adminpage' v-if="Useradmin">Admin</router-link>
-          <router-link to='/adminpage' v-else>User</router-link>
+          <router-link to='/userpage' v-else>User</router-link>
           <router-link to='/login' exact v-if="!user.name">Login</router-link>
           <router-link to='/register' v-if="!user.name">Register</router-link>
           <a v-if="user.name" @click="userLogout">Logout</a>
@@ -43,7 +43,7 @@
           </div>
           <swiper class="swiper" :options="swiperOptioncourse">
             <swiper-slide v-for="course,idx in courses" :key="idx">
-              <div class="new_course_item">
+              <div class="new_course_item" @click="$router.push('/course')">
                 <div class="pic">
                   <img :src="course.pic1" alt="">
                 </div>
@@ -363,6 +363,7 @@ export default {
       height: 300px;
     }
     .swiper-slide {
+      cursor: pointer;
       .pic{
         width: 100%;
         height: 280px;

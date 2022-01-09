@@ -45,4 +45,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function ParticipateCourse(){
+        return $this->belongsToMany('App\Models\Course');
+    }
+    public function ParticipateActivity(){
+        return $this->belongsToMany('App\Models\Activity');
+    }
 }

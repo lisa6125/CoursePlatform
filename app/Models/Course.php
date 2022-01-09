@@ -27,4 +27,7 @@ class Course extends Model
         'class2',
         'class3'
     ];
+    public function UserJoinCourse(){
+        return $this->belongsToMany('App\Models\User');
+    }
 }

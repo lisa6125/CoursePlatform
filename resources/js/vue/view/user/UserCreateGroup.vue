@@ -1,7 +1,10 @@
 <template>
     <div class="text-2xl text-gray-800 course">
         <div class="course-setting card my-5 mx-auto p-1">
-                <span class="fs-2 m-3 ms-5">管理用戶開團</span>
+                <div class="addbox">
+                    <span class="addBtn fs-6 rounded-pill py-3 px-4" @click="showCard =true"><i class="fas fa-plus me-1"></i>新增開團</span>
+                </div>
+                <span class="fs-2 m-3 ms-5">我的開團</span>
             <div class="course-lists p-3 d-flex flex-wrap justify-content-center align-items-center">
                 <div class="item p-2 me-3 mb-3" v-for="item,idx in allGroup" :key="item.id">
                     <div class="pic">
@@ -21,10 +24,114 @@
                     <div class="usernum"><span class="me-1">參與人數:</span>{{item.usernum}}</div>
                     <div class="price mb-1"><span class="me-1">費用:</span>{{item.price}}</div>
                     <div class="place"><span class="me-1">地點:</span>{{item.place}}</div>
-                    <button type="button" class="usernumbtn btn btn-outline-secondary mt-3" @click="userConnect(idx)">參與名單</button>
                 </div>
             </div>
         </div>
+        <transition name="fade">
+            <div v-show="showCard" class="newGroup">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div class="row mb-3">
+                            <div class="row w-50 flex-grow-1 me-1">
+                                <label class="col-3 col-form-label">登記開始</label>
+                                <div class="col-7">
+                                    <vue-datepicker-local v-model="newGroup.signUp_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                </div>
+                                <label for="inputEmail3" class="col-3 col-form-label">登記結束</label>
+                                <div class="col-7">
+                                    <vue-datepicker-local v-model="newGroup.signUp_end_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                </div>
+                            </div>
+                            <div class="row w-50">
+                                <label for="inputEmail3" class="col-3 col-form-label">活動開始</label>
+                                <div class="col-7">
+                                    <vue-datepicker-local v-model="newGroup.activity_start_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                </div>
+                                <label for="inputEmail3" class="col-3 col-form-label">活動結束</label>
+                                <div class="col-7">
+                                    <vue-datepicker-local v-model="newGroup.activity_send_time" format="YYYY-MM-DD HH:mm:ss"></vue-datepicker-local>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4 d-flex justify-content-center align-items-center">
+                                <span style="width:50px">名稱</span>
+                                <input class="form-control" v-model="newGroup.title">
+                            </div>
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">地點</span>
+                                <input class="form-control" v-model="newGroup.place">
+                            </div>
+                            <div class="col-4 d-flex d-flex justify-content-center align-items-center">
+                                <span style="width:50px">價錢</span>
+                                <input class="form-control" v-model="newGroup.price">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-1 col-form-label">條件</label>
+                            <div class="col-5">
+                                <input class="form-control" v-model="newGroup.condition">
+                            </div>
+                            <label class="col-1 col-form-label">提醒</label>
+                            <div class="col-5">
+                                <input class="form-control" v-model="newGroup.notice">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <label>標籤1</label>
+                                <div>
+                                <input class="form-control" v-model="newGroup.class1">
+                                </div>
+                                <label>標籤2</label>
+                                <div>
+                                <input class="form-control" v-model="newGroup.class2">
+                                </div>
+                                <label>標籤3</label>
+                                <div>
+                                <input class="form-control" v-model="newGroup.class3">
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-floating">
+                                <textarea v-model="newGroup.content" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 210px"></textarea>
+                                <label for="floatingTextarea2">活動主要內容</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-1 col-form-label">照片1</label>
+                            <div class="col-3 p-0">
+                            <input type="email" class="form-control" v-model="newGroup.pic1">
+                            </div>
+                            <label class="col-1 col-form-label">照片2</label>
+                            <div class="col-3 p-0">
+                            <input type="email" class="form-control" v-model="newGroup.pic2">
+                            </div>
+                            <label class="col-1 col-form-label">照片3</label>
+                            <div class="col-3 p-0">
+                            <input type="email" class="form-control" v-model="newGroup.pic3">
+                            </div>
+                        </div>
+                        <div class="row mb-3 mx-auto">
+                            <div class="picbox col-4 p-3" v-show="newGroup.pic1">
+                                <img :src="newGroup.pic1" />
+                            </div>
+                            <div class="picbox col-4 p-3" v-show="newGroup.pic2">
+                                <img :src="newGroup.pic2" />
+                            </div>
+                            <div class="picbox col-4 p-3" v-show="newGroup.pic3">
+                                <img :src="newGroup.pic3" />
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-secondary me-2" @click="showCard = false">取消</button>
+                        <button type="button" class="btn btn-outline-primary" @click="sendNewGroup">送出</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
         <!-- 編輯modal -->
         <transition name="fade">
             <div v-show="showEditCard" class="newEdit">
@@ -79,9 +186,9 @@
                                 <span style="width:50px">狀態</span>
                                 <select class="form-select" aria-label="Default select example" v-model="choseEdit.state">
                                 <option selected>召集中</option>
-                                <option value="審核">審核</option>
+                                <!-- <option value="審核">審核</option>
                                 <option value="審核通過">審核通過</option>
-                                <option value="審核不通過">審核不通過</option>
+                                <option value="審核不通過">審核不通過</option> -->
                                 <option value="確認開團">確認開團</option>
                                 <option value="開團失敗">開團失敗</option>
                                 <option value="報名截止">報名截止</option>
@@ -145,41 +252,6 @@
                 </div>
             </div>
         </transition>
-        <!-- 參與名單 -->
-        <transition name="fade">
-            <div v-show="showUserCard">
-                <div  class="userList">
-                    <div class="card">
-                        <div class="close" @click="showUserCard=false">
-                            <i class="fas fa-times"></i>
-                        </div>
-                        <h5 class="card-title">{{choseEdit.title}}</h5>
-                        <div class="card-body">
-                            <div class="user-info">
-                                <table class="table">
-                                <thead>
-                                    <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col">name</th>
-                                    <th scope="col">phone</th>
-                                    <th scope="col">email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="user,idx in choseEdit.user_join_activity" :key='idx'>
-                                    <td><div class="user-pic"><img :src="user.pic" alt=""></div></td>
-                                    <td><div class="user-name">{{user.name}}</div></td>
-                                    <td><div class="user-phone">{{user.phone}}</div></td>
-                                    <td><div class="user-email">{{user.email}}</div></td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
     </div>
 </template>
 <script>
@@ -194,7 +266,6 @@ export default {
             time: new Date(),
             showCard:false,
             showEditCard:false,
-            showUserCard:false,
             choseEdit:'',
             newGroup:{
                 title:'',
@@ -232,8 +303,17 @@ export default {
         timeChanger(time){
             return new Date(time).toLocaleString();
         },
-        sendEditGroup(){
-            axios.post('/api/admin/updateGroup', this.choseEdit)
+        disabledDate (time) {
+          var day = time.getDay();
+          return day === 0 || day === 6;
+        },
+        sendNewGroup(){
+            this.newGroup.who_create = this.user.id;
+            this.newGroup.connect_user_phone = this.user.phone;
+            this.newGroup.connect_user_email = this.user.email;
+            this.newGroup.connect_user_pic = this.user.pic;
+            this.newGroup.who = this.user.id;
+            axios.post('/api/admin/createGroup', this.newGroup)
             .then((res) =>{
                 new this.$swal({
                 icon: 'success',
@@ -241,8 +321,46 @@ export default {
                 showCancelButton: false,
                 timer: 1500
                 })
+                this.showCard = false;
+                this.newGroup = {
+                    title:'',
+                    content:'',
+                    pic1:'',
+                    pic2:'',
+                    pic3:'',
+                    price:'',
+                    notice:'',
+                    place:'',
+                    activity_start_time:new Date(),
+                    activity_send_time:new Date(),
+                    signUp_start_time:new Date(),
+                    signUp_end_time:new Date(),
+                    condition:'',
+                    class1:'',
+                    class2:'',
+                    class3:'',
+                }
+                this.getGroup();
+            }).catch((error) =>{
+                new this.$swal({
+                icon: 'error',
+                title: '刪除失敗',
+                showCancelButton: false,
+                timer: 1500
+                })
+            })
+        },
+        sendEditGroup(){
+            axios.post('/api/admin/updateGroup', this.choseEdit)
+            .then((res) =>{
+                new this.$swal({
+                icon: 'success',
+                title: '更新成功',
+                showCancelButton: false,
+                timer: 1500
+                })
                 this.showEditCard = false;
-                this.getOtherUserGroup();
+                this.getGroup();
             }).catch((error) =>{
                 new this.$swal({
                 icon: 'error',
@@ -252,10 +370,10 @@ export default {
                 })
             })
         },
-        getOtherUserGroup(){
-            axios.get('/api/admin/getOtherUserGroup/'+this.user.id)
+        getGroup(){
+            axios.get('/api/admin/getGroup/'+this.user.id)
             .then((res)=>{
-                this.allGroup = {...res.data};
+                this.allGroup = [...res.data];
             })
         },
         editItem(idx){
@@ -295,13 +413,9 @@ export default {
                 }
             })
         },
-        userConnect(idx){
-            this.showUserCard = true;
-            this.choseEdit = {...this.allGroup[idx]}
-        },
     },
     created(){
-        this.getOtherUserGroup();
+        this.getGroup();
     }
 }
 </script>

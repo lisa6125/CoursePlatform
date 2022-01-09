@@ -10,31 +10,25 @@
     </div>
     <div class="adminpage py-3 px-5">
     <i class="far fa-address-card"></i>
-    <router-link class="text-decoration-none" to='/adminpage/' >
+    <router-link class="text-decoration-none" to='/userpage/' >
     個人資料
     </router-link>
     </div>
     <div class="adminpage py-3 px-5">
-    <i class="fas fa-users-cog"></i>
-    <router-link class="text-decoration-none" to='/adminpage/adminuser' >
-    用戶管理
-    </router-link>
-    </div>
-    <div class="adminpage py-3 px-5">
     <i class="fas fa-chalkboard-teacher"></i>
-    <router-link class="text-decoration-none" to='/adminpage/createcourse' >
-    課程管理
-    </router-link>
-    </div>
-    <div class="adminpage py-3 px-5">
-    <i class="fas fa-clipboard-list"></i>
-    <router-link class="text-decoration-none" to='/adminpage/adminGroup' >
-    開團管理
+    <router-link class="text-decoration-none" to='/userpage/userCourse' >
+    我的課程
     </router-link>
     </div>
     <div class="adminpage py-3 px-5">
     <i class="fas fa-receipt"></i>
-    <router-link class="text-decoration-none" to='/adminpage/creategroup' >
+    <router-link class="text-decoration-none" to='/userpage/userGroup' >
+    我的活動
+    </router-link>
+    </div>
+    <div class="adminpage py-3 px-5">
+    <i class="fas fa-clipboard-list"></i>
+    <router-link class="text-decoration-none" to='/userpage/userCreateGroup'>
     我的開團
     </router-link>
     </div>

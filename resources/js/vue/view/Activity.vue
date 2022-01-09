@@ -25,7 +25,7 @@
           <div class="banner_container">
             <div class="left">
               <div class="latestcoursescard">
-                <img src="/images/latestcoursescard.png" alt="">
+                <img src="/images/latestactivitiescard.png" alt="">
               </div>
               <div class="coursetext">
                 <img src="/images/coursetext.png" alt="">
@@ -33,7 +33,7 @@
             </div>
             <div class="right">
               <swiper class="swiper" :options="swiperOptionbanner">
-                <swiper-slide v-for="course,idx in courses" :key="idx">
+                <swiper-slide v-for="course,idx in groups" :key="idx">
                   <div class="new_course_item">
                     <div class="pic">
                       <img :src="course.pic1" alt="">
@@ -65,7 +65,7 @@
               <img src="/images/coursetitle.png" alt="">
           </div>
           <div class="courseList_container">
-            <div class="courseList_item" v-for="course,idx in makNeweCourses" :key="idx">
+            <div class="courseList_item" v-for="course,idx in makNeweActivitys" :key="idx">
               <div class="courseList_item_pic">
                 <img :src="course.pic1" alt="">
                 <div class="courseList_item_class">
@@ -73,32 +73,39 @@
                   <button type="button" class="btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1">{{course.class2}}</button>
                   <button type="button" class="btn btn-outline-light badge rounded-pill bg-ligh py-1 px-2 me-1">{{course.class3}}</button>
                 </div>
+                <div class="courseList_item_user">
+                  <div class="courseList_item_userpic">
+                    <img :src="course.user_pic" alt="">
+                  </div>
+                  <span>由 {{course.user_name}} 創建</span>
+                </div>
               </div>
               <div class="courseList_item_content">
-              <div class="courseList_item_content_title">課程名稱: <span>{{course.title}}</span> </div>
-              <div class="courseList_item_content_signuptime">登記時間:<span>{{timeChanger(course.signUp_start_time)}}<br>~{{timeChanger(course.signUp_end_time)}}</span></div>
-              <div class="courseList_item_content_coursetime">課程時間:<span>{{timeChanger(course.course_start_time)}}<br>~{{timeChanger(course.course_send_time)}}</span></div>
-              <div class="courseList_item_content_place">課程地點:<span>{{course.place}}</span></div>
-              <div class="courseList_item_content_price">課程費用:<span>{{course.price}}</span></div>
+              <div class="courseList_item_content_title"> <span>{{course.title}}</span> </div>
+              <!-- <div class="courseList_item_content_title">活動狀態: <span>{{course.state}}</span> </div> -->
+              <!-- <div class="courseList_item_content_signuptime">登記時間:<span>{{timeChanger(course.signUp_start_time)}}<br>~{{timeChanger(course.signUp_end_time)}}</span></div> -->
+              <div class="courseList_item_content_coursetime">活動時間:<span>{{timeChanger(course.activity_start_time)}}<br>~{{timeChanger(course.activity_send_time)}}</span></div>
+              <div class="courseList_item_content_place">活動地點:<span>{{course.place}}</span></div>
+              <div class="courseList_item_content_price">活動費用:<span>{{course.price}}</span></div>
               </div>
               <div class="courseList_item_btns">
-                <div class="btn disabled" v-if="course.alreadyJoin" >已參加</div>
-                <div class="btn" v-else @click="takeParticipateCourse(course.id)">參加</div>
+                <div class="btn border-end disable" v-if="course.alreadyJoin">已參加</div>
+                <div class="btn border-end" v-else @click="takeParticipateActivity(course.id)">參加</div>
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal(idx)">
                   詳情
                 </button>
               </div>
               <div class="courseList_item_joinusers">參加人數: <span>{{course.usernum}}</span> 人</div>
-              <div v-if="course.user_join_course.length>3" class="courseList_item_joinuserspics">
+              <div v-if="course.usernum>3" class="courseList_item_joinuserspics">
                 <div class="joinuserspics_box">
                   <div class="pic1">
-                    <img :src="course.user_join_course[0].pic" alt="">
+                    <img :src="course.user_join_activity[0].pic" alt="">
                   </div>
                   <div class="pic2">
-                    <img :src="course.user_join_course[1].pic" alt="">
+                    <img :src="course.user_join_activity[1].pic" alt="">
                   </div>
                   <div class="pic3">
-                    <img :src="course.user_join_course[2].pic" alt="">
+                    <img :src="course.user_join_activity[2].pic" alt="">
                   </div>
                   <div class="pic4">
                     <div class="moreNum">+ {{course.usernum - 3}}</div>
@@ -110,8 +117,9 @@
         </div>
         <!-- 替換內容 -->
         <!-- 彈跳視窗 -->
+        <!-- 彈跳視窗 -->
         <div class="modal fade" :v-model="nowOpen" id="exampleModal" tabindex="-1">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-xl ">
             <div class="modal-content">
               <div class="modal-header border-0">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -124,13 +132,15 @@
                       </transition>
                     </div>
                     <div class="pics">
-                      <img :src="nowOpen.pic1" @click="nowOpenPic = nowOpen.pic1">
-                      <img :src="nowOpen.pic2" @click="nowOpenPic = nowOpen.pic2">
-                      <img :src="nowOpen.pic3" @click="nowOpenPic = nowOpen.pic3">
+                      <img :src="nowOpen.pic1" v-if="nowOpen.pic2" @click="nowOpenPic = nowOpen.pic1">
+                      <img :src="nowOpen.pic2" v-if="nowOpen.pic2" @click="nowOpenPic = nowOpen.pic2">
+                      <img :src="nowOpen.pic3" v-if="nowOpen.pic3" @click="nowOpenPic = nowOpen.pic3">
                     </div>
                 </div>
                 <div class="modal_right">
-                  <div class="modal_right_title">{{nowOpen.title}}</div>
+                  <div class="modal_right_title">{{nowOpen.title}}
+                    <div class="state">{{nowOpen.state}}</div>
+                  </div>
                   <div class="modal_right_content">{{nowOpen.content}}</div>
                   <div class="modal_right_bottom">
                     <div class="modal_right_signuptime">
@@ -140,32 +150,51 @@
                     </div>
                     <div class="modal_right_coursetime">
                       <p class="icon"><i class="far fa-calendar-alt"></i></p>
-                      <span class="title">課程時間:</span>
-                      {{timeChanger(nowOpen.course_start_time)}}~{{timeChanger(nowOpen .course_send_time)}}
+                      <span class="title">活動時間:</span>
+                      {{timeChanger(nowOpen.activity_start_time)}}~{{timeChanger(nowOpen .activity_send_time)}}
                     </div>
                     <div class="modal_right_notice">
                       <p class="icon"><i class="fas fa-exclamation-circle"></i></p>
                       <span class="title">注意事項:</span>
                       {{nowOpen.notice}}
                     </div>
+                    <div class="modal_right_notice">
+                      <p class="icon"><i class="far fa-flag"></i></p>
+                      <span class="title">開團條件:</span>
+                      {{nowOpen.condition}}
+                    </div>
                     <div class="modal_right_place">
                       <p class="icon"><i class="fas fa-map-marker-alt"></i></p>
-                      <span class="title">課程地點:</span>
+                      <span class="title">活動地點:</span>
                       {{nowOpen.place}}
                     </div>
                     <div class="modal_right_price">
                       <p class="icon"><i class="fas fa-comment-dollar"></i></p>
-                      <span class="title">課程費用:</span>
+                      <span class="title">活動費用:</span>
                       {{nowOpen.price}}
                     </div>
+                    <div class="modal_right_user">
+                      <p class="icon"><i class="fas fa-user-alt"></i></p>
+                      <span class="title">聯絡人:</span>
+                      {{nowOpen.user_name}}
+                    </div>
+                    <div class="modal_right_user">
+                      <p class="icon"><i class="fas fa-mobile-alt"></i></p>
+                      <span class="title">聯絡電話:</span>
+                      {{nowOpen.user_phone}}
+                    </div>
+                    <div class="modal_right_user">
+                      <p class="icon"><i class="fas fa-envelope"></i></p>
+                      <span class="title">聯絡信箱:</span>
+                      {{nowOpen.user_email}}
+                    </div>
                   </div>
-                  <div class="joinbtn" @click="takeParticipateCourse(course.id)">參加</div>
+                  <div class="joinbtn">參加</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- 彈跳視窗 -->
         <div class="footer">
           <div class="contact">
             <div class="title">Contact</div>
@@ -223,15 +252,14 @@ export default {
         Useradmin:'',
         nowOpen:'',
         nowOpenPic:'',
-        courses:[],
+        groups:[],
         myParticipates:[],
       }
   },
   computed:{
     ...mapState(["user"]),
-    // 過濾活動
-    makNeweCourses(){
-      let newCourses = this.courses.map(item => {
+    makNeweActivitys(){
+      let newactivitys = this.groups.map(item => {
           this.myParticipates.forEach(element => {
               if(item.id == element.id){
                   item.alreadyJoin = true
@@ -239,10 +267,9 @@ export default {
           });
           return item
       });
-      return newCourses;
+      return newactivitys;
     },
   },
-
   methods:{
     ...mapMutations(["logout"]),
     userLogout(){
@@ -269,28 +296,18 @@ export default {
       return new Date(time).toLocaleString();
     },
     checkUser(){
-      axios.post('/api/admin/checkadmin/'+ this.user.id)
-      .then((res)=>{
-        this.Useradmin = res.data;
-      })
-      .catch(()=>{
-        this.Useradmin = false;
-      })
-    },
-    getCourse(){
-      axios.get('/api/admin/getCourese')
-      .then((res)=>{
-        this.courses = [...res.data];
-      }).catch((err)=>{
-        console.log(err)
-      })
-    },
-    openModal(num){
-      this.nowOpen = this.courses[num];
-      this.nowOpenPic = this.nowOpen.pic1;
+      if(this.user.id){
+        axios.post('/api/admin/checkadmin/'+ this.user.id)
+        .then((res)=>{
+          this.Useradmin = res.data;
+        })
+        .catch(()=>{
+          this.Useradmin = false;
+        })
+      }
     },
     // 參加活動
-    takeParticipateCourse(id){
+    takeParticipateActivity(id){
       if(!this.user.id){
         new this.$swal({
           icon: 'info',
@@ -300,7 +317,7 @@ export default {
         })
         return
       }
-      axios.post('/api/user/join/'+id,{userId:this.user.id})
+      axios.post('/api/user/join/activity/'+id,{userId:this.user.id})
       .then((res)=>{
         new this.$swal({
           icon: 'success',
@@ -308,37 +325,49 @@ export default {
           showCancelButton: false,
           timer: 1500
           })
-          this.getCourse();
-          this.getUserParticipate();
+          this.getGroup();
+          this.getUserParticipateActivity();
       }).catch((err)=>{
         console.log(err)
       })
     },
     // 抓取已參加活動
-    getUserParticipate(){
+    getUserParticipateActivity(){
       if(!this.user.id){
         return
       }
-        axios.post('/api/user/getUserParticipate',{userId:this.user.id})
+        axios.post('/api/user/getUserParticipateActivity',{userId:this.user.id})
         .then((res)=>{
             this.myParticipates = [...res.data];
         }).catch((err)=>{
             console.log(err)
         })
     },
-    // getGroup(){
-    //   axios.get('/api/user/getgroup')
+    // getCourse(){
+    //   axios.get('/api/admin/getCourese')
     //   .then((res)=>{
-    //     this.groups = [...res.data];
+    //     this.courses = [...res.data];
     //   }).catch((err)=>{
     //     console.log(err)
     //   })
-    // }
+    // },
+    openModal(num){
+      this.nowOpen = this.groups[num];
+      this.nowOpenPic = this.nowOpen.pic1;
+    },
+    getGroup(){
+      axios.get('/api/admin/getAllGroup')
+      .then((res)=>{
+        this.groups = [...res.data];
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
   },
   created(){
     this.checkUser();
-    this.getCourse();
-    this.getUserParticipate();
+    this.getGroup();
+    this.getUserParticipateActivity();
   },
 
 }
@@ -476,16 +505,21 @@ export default {
   }
   &_container{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     z-index:50;
+    padding: 0 50px;
   }
   &_item{
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:calc(33% - 30px) ;
     z-index:50;
     min-width: 300px;
-    height: 220px;
+    margin:15px;
     margin-bottom: 20px;
     position: relative;
     display: flex;
@@ -501,12 +535,25 @@ export default {
       box-shadow: 3px 3px 10px 1px rgba(78, 78, 78, 0.212),3px 3px 20px 1px rgba(78, 78, 78, 0.219);
     }
     &_pic{
-      width: 40%;
-      height: 100%;
+      width: 100%;
+      height: 300px;
+      min-height: 300px;
       border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius:20px;
+      border-bottom-right-radius: 20px;
       overflow:hidden;
       position: relative;
+      &::before{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 30%;
+        top: 0;
+        left: 0;
+        background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));;
+        z-index: 2;
+      }
       img{
         width: 100%;
         height: 100%;
@@ -517,9 +564,34 @@ export default {
         bottom: 5px;
         right: 5px;
       }
+      .courseList_item_user{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 5;
+        span{
+          font-size: 14px;
+          color: rgb(255, 255, 255);
+        }
+        .courseList_item_userpic{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 5px;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+      }
     }
     &_content{
-      width: 45%;
+      width: 100%;
       height: 100%;
       padding: 10px;
       display: flex;
@@ -531,6 +603,20 @@ export default {
         font-weight: 500;
         margin-left: 5px;
       }
+      &_title{
+        width: 100%;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 900;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span{
+          font-weight: 900;
+          font-size: 20px;
+        }
+      }
       &_signuptime, &_coursetime{
         display: flex;
         justify-content: space-around;
@@ -538,15 +624,27 @@ export default {
       }
     }
     &_btns{
-      width: 15%;
+      width: 100%;
       height: 100%;
-      padding: 15px;
+      padding: 0px;
+      margin-top: 50px;
+      display: flex;
+      border-bottom-left-radius:5px;
+      border-bottom-right-radius: 5px;
+      overflow:hidden ;
       .btn{
         background: #8b989f;
         color: #fff;
         border-radius: 0px;
-        margin-bottom: 10px;
-        width: 100%;
+        width: 50%;
+        padding: 10px 0;
+        &.disable{
+          background: #c5cccf;
+          cursor: default;
+          &:hover{
+            background: #c5cccf;
+          }
+        }
         &:hover{
           background: #a9b9c2;
         }
@@ -554,15 +652,15 @@ export default {
     }
     &_joinusers{
       position: absolute;
-      bottom:10px;
+      bottom:55px;
       right:10px;
       font-size: 14px;
       color: rgb(189, 201, 206);
     }
     &_joinuserspics{
       position: absolute;
-      bottom:40px;
-      right:10px;
+      bottom:50px;
+      left:80px;
       width: 120px;
       height: 40px;
       .joinuserspics_box{
@@ -701,6 +799,18 @@ export default {
       text-align: center;
       border-bottom: 2px solid rgb(151, 151, 151);
       margin:0 20px;
+      position: relative;
+      .state{
+        position: absolute;
+        font-weight: 900;
+        background: rgb(44, 60, 95);
+        color: #fff;
+        top: 0;
+        right: 0;
+        font-size: 16px;
+        padding: 4px 15px;
+        border-radius: 8px;
+      }
     }
     &_content{
       margin:10px 20px;

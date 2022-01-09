@@ -29,6 +29,14 @@ Route::prefix('user')->group(function(){
     Route::post('/update', [UserController::class,'update']);
     Route::get('/getcourse', [UserController::class,'getcourse']);
     Route::get('/getgroup', [UserController::class,'getgroup']);
+    // course
+    Route::post('/join/{id}',[UserController::class,'takeParticipateCourse']);
+    Route::post('/getUserParticipate',[UserController::class,'getUserParticipate']);
+    Route::post('/UserCancelParticipate/{id}',[UserController::class,'UserCancelParticipate']);
+    // activity
+    Route::post('/join/activity/{id}',[UserController::class,'takeParticipateActivity']);
+    Route::post('/getUserParticipateActivity',[UserController::class,'getUserParticipateActivity']);
+    Route::post('/UserCancelParticipateActivity/{id}',[UserController::class,'UserCancelParticipateActivity']);
 });
 
 Route::prefix('admin')->group(function(){
@@ -37,6 +45,8 @@ Route::prefix('admin')->group(function(){
     Route::post('/createGroup', [AdminController::class,'createGroup']);
     
     Route::get('/getCourese', [AdminController::class,'getCourese']);
+    Route::get('/getAllGroup', [AdminController::class,'getAllGroup']);
+
     Route::get('/getGroup/{id}', [AdminController::class,'getGroup']);
     Route::get('/getOtherUserGroup/{id}', [AdminController::class,'getOtherUserGroup']);
     Route::get('/getUser', [AdminController::class,'getUser']);
