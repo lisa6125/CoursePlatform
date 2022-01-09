@@ -91,7 +91,7 @@ export default {
   },
   data() {
     return {
-            form:{
+      form:{
                 name: '',
                 account: '',
                 pic: '',
@@ -104,13 +104,14 @@ export default {
                 courseyouopen:0,
                 activityyoujoin:0,
                 activityyouopen:0,
-            },
-            errors:[]
+      },
+      errors:[],
+      Useradmin:'',
         
-      }
+    }
   },
   methods:{
-        saveForm(){
+    saveForm(){
             if(this.form.name == ''|| this.form.account == '' || this.form.phone == '' ||this.form.email == '' ||this.form.password == '' ||this.form.password_confirmation == ''){
                 new this.$swal({
                 icon: 'warning',
@@ -150,9 +151,23 @@ export default {
                 })
                 this.errors = error.response.data.errors;
             })
-        }
+    },
+    checkUser(){
+      if(!this.user.id){
+        return 
+      }
+      axios.post('/api/admin/checkadmin/'+ this.user.id)
+      .then((res)=>{
+        this.Useradmin = res.data;
+      })
+      .catch(()=>{
+        this.Useradmin = false;
+      })
+    },
   },
-
+  created(){
+    this.checkUser();
+  }
 }
 </script>
 <style lang="scss" scoped>

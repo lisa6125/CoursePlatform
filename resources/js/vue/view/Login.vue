@@ -93,6 +93,7 @@ export default {
             prevEl: '.swiper-button-prev'
           }
         },
+        Useradmin:'',
             form:{
                 account: '',
                 password: ''
@@ -107,8 +108,8 @@ export default {
   },
 
   methods:{
-        ...mapMutations(["login"]),
-        loginUser(){
+    ...mapMutations(["login"]),
+    loginUser(){
             axios.post('/api/user/login', this.form).then((res) =>{
                 this.login(res.data)
                 new this.$swal({
@@ -129,9 +130,23 @@ export default {
                 })
         this.errors = error.response.data.errors;
             })
-        }
+    },
+    checkUser(){
+      if(!this.user.id){
+        return 
+      }
+      axios.post('/api/admin/checkadmin/'+ this.user.id)
+      .then((res)=>{
+        this.Useradmin = res.data;
+      })
+      .catch(()=>{
+        this.Useradmin = false;
+      })
+    },
   },
-
+  created(){
+    this.checkUser();
+  }
 }
 </script>
 <style lang="scss" scoped>
