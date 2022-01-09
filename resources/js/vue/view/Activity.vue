@@ -359,6 +359,15 @@ export default {
       axios.get('/api/admin/getAllGroup')
       .then((res)=>{
         this.groups = [...res.data];
+        this.groups = this.groups.filter((item)=>{
+          let time = Math.floor(new Date());
+          if(Date.parse(item.activity_start_time).valueOf()>time && 
+          item.state !== '審核' && 
+          item.state !== '審核通過' &&
+          item.state !== '審核不通過'){
+            return item
+          }
+        })
       }).catch((err)=>{
         console.log(err)
       })

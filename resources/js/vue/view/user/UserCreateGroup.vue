@@ -185,14 +185,14 @@
                             <div class="col-4 d-flex d-flex justify-content-center align-items-center">
                                 <span style="width:50px">狀態</span>
                                 <select class="form-select" aria-label="Default select example" v-model="choseEdit.state">
-                                <option selected>召集中</option>
-                                <!-- <option value="審核">審核</option>
+                                <option selected>{{choseEdit.state}}</option>
+                                <!-- <option value="審核" class="disable">審核</option>
                                 <option value="審核通過">審核通過</option>
                                 <option value="審核不通過">審核不通過</option> -->
-                                <option value="確認開團">確認開團</option>
-                                <option value="開團失敗">開團失敗</option>
-                                <option value="報名截止">報名截止</option>
-                                <option value="已結束">已結束</option>
+                                <option v-show='choseEdit.state !== "審核不通過" && choseEdit.state !== "審核"' value="確認開團">確認開團</option>
+                                <option v-show='choseEdit.state!== "審核不通過" && choseEdit.state!== "審核"' value="開團失敗">開團失敗</option>
+                                <option v-show='choseEdit.state!== "審核不通過" && choseEdit.state!== "審核"' value="報名截止">報名截止</option>
+                                <option v-show='choseEdit.state!== "審核不通過" && choseEdit.state!== "審核"' value="已結束">已結束</option>
                                 </select>
                             </div>
                         </div>
@@ -351,6 +351,15 @@ export default {
             })
         },
         sendEditGroup(){
+            if(this.choseEdit.state == '審核' ||this.choseEdit.state == '審核不通過'){
+                new this.$swal({
+                icon: 'error',
+                title: '此狀態不可更新，若有疑問請聯繫管理者',
+                showCancelButton: false,
+                timer: 1500
+                })
+                return 
+            }
             axios.post('/api/admin/updateGroup', this.choseEdit)
             .then((res) =>{
                 new this.$swal({

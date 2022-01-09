@@ -10115,6 +10115,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios.get('/api/admin/getAllGroup').then(function (res) {
         _this6.groups = _toConsumableArray(res.data);
+        _this6.groups = _this6.groups.filter(function (item) {
+          var time = Math.floor(new Date());
+
+          if (Date.parse(item.activity_start_time).valueOf() > time && item.state !== '審核' && item.state !== '審核通過' && item.state !== '審核不通過') {
+            return item;
+          }
+        });
       })["catch"](function (err) {
         console.log(err);
       });
@@ -13455,6 +13462,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     sendEditGroup: function sendEditGroup() {
       var _this2 = this;
+
+      if (this.choseEdit.state == '審核' || this.choseEdit.state == '審核不通過') {
+        new this.$swal({
+          icon: 'error',
+          title: '此狀態不可更新，若有疑問請聯繫管理者',
+          showCancelButton: false,
+          timer: 1500
+        });
+        return;
+      }
 
       axios.post('/api/admin/updateGroup', this.choseEdit).then(function (res) {
         new _this2.$swal({
@@ -63197,24 +63214,84 @@ var render = function () {
                         },
                         [
                           _c("option", { attrs: { selected: "" } }, [
-                            _vm._v("召集中"),
+                            _vm._v(_vm._s(_vm.choseEdit.state)),
                           ]),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "確認開團" } }, [
-                            _vm._v("確認開團"),
-                          ]),
+                          _c(
+                            "option",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.choseEdit.state !== "審核不通過" &&
+                                    _vm.choseEdit.state !== "審核",
+                                  expression:
+                                    'choseEdit.state !== "審核不通過" && choseEdit.state !== "審核"',
+                                },
+                              ],
+                              attrs: { value: "確認開團" },
+                            },
+                            [_vm._v("確認開團")]
+                          ),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "開團失敗" } }, [
-                            _vm._v("開團失敗"),
-                          ]),
+                          _c(
+                            "option",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.choseEdit.state !== "審核不通過" &&
+                                    _vm.choseEdit.state !== "審核",
+                                  expression:
+                                    'choseEdit.state!== "審核不通過" && choseEdit.state!== "審核"',
+                                },
+                              ],
+                              attrs: { value: "開團失敗" },
+                            },
+                            [_vm._v("開團失敗")]
+                          ),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "報名截止" } }, [
-                            _vm._v("報名截止"),
-                          ]),
+                          _c(
+                            "option",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.choseEdit.state !== "審核不通過" &&
+                                    _vm.choseEdit.state !== "審核",
+                                  expression:
+                                    'choseEdit.state!== "審核不通過" && choseEdit.state!== "審核"',
+                                },
+                              ],
+                              attrs: { value: "報名截止" },
+                            },
+                            [_vm._v("報名截止")]
+                          ),
                           _vm._v(" "),
-                          _c("option", { attrs: { value: "已結束" } }, [
-                            _vm._v("已結束"),
-                          ]),
+                          _c(
+                            "option",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value:
+                                    _vm.choseEdit.state !== "審核不通過" &&
+                                    _vm.choseEdit.state !== "審核",
+                                  expression:
+                                    'choseEdit.state!== "審核不通過" && choseEdit.state!== "審核"',
+                                },
+                              ],
+                              attrs: { value: "已結束" },
+                            },
+                            [_vm._v("已結束")]
+                          ),
                         ]
                       ),
                     ]
