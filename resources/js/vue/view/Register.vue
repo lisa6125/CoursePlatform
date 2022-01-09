@@ -80,7 +80,7 @@
 </div>
 </template>
 <script>
-import {mapState, mapMutations} from "vuex";
+import {mapState} from "vuex";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import 'swiper/css/swiper.css';
 
@@ -109,6 +109,10 @@ export default {
       Useradmin:'',
         
     }
+  },
+  computed:{
+    ...mapState(["user"]),
+    // 過濾活動
   },
   methods:{
     saveForm(){
