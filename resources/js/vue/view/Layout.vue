@@ -78,7 +78,7 @@ body,html{
 }
 .layout{
   width: 100%;
-  min-height: 1000px;
+  min-height: 800px;
   background: url('/images/bg.png');
   background-repeat:no-repeat;
   background-position:center center;
