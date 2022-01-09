@@ -87,18 +87,22 @@ export default {
       })
     },
     checkUser(){
+      if(!this.user.id){
+          this.$router.push('/');
+      }
       axios.post('/api/admin/checkadmin/'+ this.user.id)
       .then((res)=>{
         if(!res.data){
           this.$router.push('/');
         }
       })
-      .catch(()=>{
+      .catch((err)=>{
+        console.log(err)
       })
     }
   },
   created(){
-    // this.checkUser();
+    this.checkUser();
   }
 }
 </script>

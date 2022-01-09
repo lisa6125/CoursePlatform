@@ -81,18 +81,13 @@ export default {
       })
     },
     checkUser(){
-      axios.post('/api/admin/checkadmin/'+ this.user.id)
-      .then((res)=>{
-        if(!res.data){
-          this.$router.push('/');
-        }
-      })
-      .catch(()=>{
-      })
+      if(!this.user.id){
+        this.$router.push('/');
+      }
     }
   },
   created(){
-    // this.checkUser();
+    this.checkUser();
   }
 }
 </script>

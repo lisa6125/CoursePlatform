@@ -174,13 +174,6 @@ const routes = [
                 }
             },
         ],
-        // beforeEnter: (to, form, next) =>{
-        //    axios.get('/api/athenticated').then(()=>{
-        //        next()
-        //    }).catch(()=>{
-        //        return next({ name: 'Login'})
-        //    })
-        // }
     }
 ]
 const router = new VueRouter({

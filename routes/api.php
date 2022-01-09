@@ -27,6 +27,7 @@ Route::prefix('user')->group(function(){
     Route::post('/register', [UserController::class,'register']);
     Route::post('/logout', [UserController::class,'logout']);
     Route::post('/update', [UserController::class,'update']);
+
     Route::get('/getcourse', [UserController::class,'getcourse']);
     Route::get('/getgroup', [UserController::class,'getgroup']);
     // course

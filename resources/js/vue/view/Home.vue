@@ -236,6 +236,9 @@ export default {
       })
     },
     checkUser(){
+      if(!this.user.id){
+        return 
+      }
       axios.post('/api/admin/checkadmin/'+ this.user.id)
       .then((res)=>{
         this.Useradmin = res.data;

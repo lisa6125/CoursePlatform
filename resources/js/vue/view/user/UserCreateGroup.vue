@@ -24,6 +24,7 @@
                     <div class="usernum"><span class="me-1">參與人數:</span>{{item.usernum}}</div>
                     <div class="price mb-1"><span class="me-1">費用:</span>{{item.price}}</div>
                     <div class="place"><span class="me-1">地點:</span>{{item.place}}</div>
+                    <button type="button" class="usernumbtn btn btn-outline-secondary mt-3" @click="userConnect(idx)">參與名單</button>
                 </div>
             </div>
         </div>
@@ -252,6 +253,41 @@
                 </div>
             </div>
         </transition>
+        <!-- 參與名單 -->
+        <transition name="fade">
+            <div v-show="showUserCard">
+                <div  class="userList">
+                    <div class="card">
+                        <div class="close" @click="showUserCard=false">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <h5 class="card-title">{{choseEdit.title}}</h5>
+                        <div class="card-body">
+                            <div class="user-info">
+                                <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">name</th>
+                                    <th scope="col">phone</th>
+                                    <th scope="col">email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="user,idx in choseEdit.user_join_activity" :key='idx'>
+                                    <td><div class="user-pic"><img :src="user.pic" alt=""></div></td>
+                                    <td><div class="user-name">{{user.name}}</div></td>
+                                    <td><div class="user-phone">{{user.phone}}</div></td>
+                                    <td><div class="user-email">{{user.email}}</div></td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 <script>
@@ -267,6 +303,7 @@ export default {
             showCard:false,
             showEditCard:false,
             choseEdit:'',
+            showUserCard:false,
             newGroup:{
                 title:'',
                 content:'',
@@ -422,6 +459,10 @@ export default {
                 }
             })
         },
+        userConnect(idx){
+            this.showUserCard = true;
+            this.choseEdit = {...this.allGroup[idx]}
+        },
     },
     created(){
         this.getGroup();
@@ -575,6 +616,67 @@ a{
             width:100%;
             height:100%;
             object-fit:cover;
+        }
+    }
+}
+.userList{
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.158);
+    position:absolute;
+    top:0;
+    left:0;
+    .card{
+        width:450px;
+        height:500px;
+        margin-top: 50px;
+        overflow:auto;
+        background:#fff;
+        position:absolute;
+        .close{
+            position: absolute;
+            font-size: 20px;
+            top: 5px;
+            right: 12px;
+            cursor: pointer;
+        }
+        &-title{
+            font-size: 24px;
+            font-weight: 900;
+            text-align: center;
+            margin: 10px 50px;
+            padding: 10px 20px;
+        }
+        &::-webkit-scrollbar-track
+        {
+            border-radius: 8px;
+            margin-top:10px;
+            margin-bottom:10px;
+        }
+
+        &::-webkit-scrollbar
+        {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb
+        {
+            border-radius: 8px;
+            background-color: #d4d4d4;
+        }
+        top:130px;
+        left:50%;
+        transform:translateX(-50%);
+    }
+    .user-pic{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow:hidden ;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     }
 }
