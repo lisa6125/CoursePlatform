@@ -241,7 +241,9 @@ export default {
       }
       axios.post('/api/admin/checkadmin/'+ this.user.id)
       .then((res)=>{
-        this.Useradmin = res.data;
+        if(res.data == 1){
+          this.Useradmin = true;
+        }
       })
       .catch(()=>{
         this.Useradmin = false;

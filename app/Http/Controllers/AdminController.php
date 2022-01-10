@@ -11,10 +11,10 @@ class AdminController extends Controller
 {
     public function checkadmin($id){
         $user = User::find($id);
-        if($user->admin !== 1){
-            return false;
+        if($user->admin == 1){
+            return 1;
         }else{
-            return true;
+            return 0;
         }
     }
     public function createCourese(Request $request)
