@@ -108,7 +108,7 @@ export default {
   },
 
   methods:{
-    ...mapMutations(["login"]),
+    ...mapMutations(["login","logout"]),
     loginUser(){
             axios.post('/api/user/login', this.form).then((res) =>{
                 this.login(res.data)
@@ -130,6 +130,26 @@ export default {
                 })
         this.errors = error.response.data.errors;
             })
+    },
+    userLogout(){
+      axios.post('/api/user/logout').then(() =>{
+          this.logout();
+          this.Useradmin = false;
+          new this.$swal({
+          icon: 'success',
+          title: '登出成功',
+          showCancelButton: false,
+          timer: 1500
+          })
+      }).catch((error) =>{
+          new this.$swal({
+          icon: 'error',
+          title: '登出失敗',
+          showCancelButton: false,
+          text:error.response.data.errors["account"],
+          timer: 1500
+          })
+      })
     },
     checkUser(){
       if(!this.user.id){

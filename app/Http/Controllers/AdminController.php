@@ -13,8 +13,9 @@ class AdminController extends Controller
         $user = User::find($id);
         if($user->admin !== 1){
             return false;
+        }else{
+            return true;
         }
-        return true;
     }
     public function createCourese(Request $request)
     {
